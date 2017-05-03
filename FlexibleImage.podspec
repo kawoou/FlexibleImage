@@ -7,12 +7,12 @@ Pod::Spec.new do |s|
   s.homepage     = 'https://github.com/Kawoou/FlexibleImage'
   s.authors      = { 'Jungwon An' => 'kawoou@kawoou.kr' }
   s.social_media_url   = 'http://fb.com/kawoou'
-  s.platform     = { :ios => '8.0',
-                     :tvos => '9.0',
-                     :osx => '10.10' }
   s.source       =  { :git => 'https://github.com/Kawoou/FlexibleImage.git',
                       :tag => s.version.to_s }
   s.requires_arc = true
   s.source_files = 'FlexibleImage/*.swift'
 
+  s.ios.deployment_target = '8.0'
+  s.tvos.deployment_target = '9.0'
+  s.osx.deployment_target = '10.10'
 end
