@@ -17,7 +17,7 @@ Installation
 KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/cocoapods). Add the following to your Podfile:
 
 ```ruby
-pod 'FlexibleImage', '~> 1.0'
+pod 'FlexibleImage', '~> 1.1'
 ```
 
 
