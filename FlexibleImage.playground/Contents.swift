@@ -38,6 +38,9 @@ let image5 = image4?.adjust()
 
 let image6 = image4 + image1
 
+let image7 = image3?.adjust()
+    .corner(CornerType(25))
+    .image()
 
 
 
