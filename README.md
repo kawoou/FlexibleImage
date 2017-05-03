@@ -78,6 +78,11 @@ let image5 = image4?.adjust()
             .alpha(0.5)
     )
     .image()
+
+/// Clipping Example
+let image6 = image5?.adjust()
+    .corner(CornerType(25))
+    .image()
 ```
 
 
@@ -98,6 +103,7 @@ Supported Features
 | scaling() | Scaling the image (ratio) |
 | margin() | Margin size |
 | padding() | Padding size |
+| corner() | To clipping corner radius. |
 
 
 ### Before
@@ -157,6 +163,7 @@ Changelog
 ---------
 
 + 1.0 First Release.
++ 1.1 Add to clipping corner radius.
 
 
 Requirements

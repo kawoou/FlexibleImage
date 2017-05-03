@@ -8,29 +8,160 @@
 
 import UIKit
 
+public struct CornerType {
+    public var topLeft: CGFloat
+    public var topRight: CGFloat
+    public var bottomLeft: CGFloat
+    public var bottomRight: CGFloat
+    
+    public func isUniform() -> Bool {
+        if self.topLeft == self.topRight &&
+            self.topRight == self.bottomLeft &&
+            self.bottomLeft == self.bottomRight &&
+            self.bottomRight > 0 {
+            return true
+        }
+        return false
+    }
+    public func isZero() -> Bool {
+        if self.topLeft == self.topRight &&
+            self.topRight == self.bottomLeft &&
+            self.bottomLeft == self.bottomRight &&
+            self.bottomRight == 0 {
+            return true
+        }
+        return false
+    }
+    
+    public func clipPath(_ rect: CGRect) -> UIBezierPath {
+        if self.isZero() {
+            
+            return  UIBezierPath(rect: rect)
+            
+        } else if self.isUniform() {
+            
+            return UIBezierPath(roundedRect: rect, cornerRadius: self.topLeft)
+            
+        } else {
+            let cornerPath = UIBezierPath()
+            
+            /// Top-Left
+            let topLeftCenter = CGPoint(
+                x: self.topLeft,
+                y: self.topLeft
+            )
+            if self.topLeft > 0 {
+                cornerPath.addArc(
+                    withCenter: topLeftCenter,
+                    radius: self.topLeft,
+                    startAngle: CGFloat.pi,
+                    endAngle: 1.5 * CGFloat.pi,
+                    clockwise: true
+                )
+            } else {
+                cornerPath.move(to: topLeftCenter)
+            }
+            
+            /// Top-Right
+            let topRightCenter = CGPoint(
+                x: rect.width - self.topRight,
+                y: self.topRight
+            )
+            if self.topRight > 0 {
+                cornerPath.addArc(
+                    withCenter: topRightCenter,
+                    radius: self.topRight,
+                    startAngle: 1.5 * CGFloat.pi,
+                    endAngle: 2 * CGFloat.pi,
+                    clockwise: true
+                )
+            } else {
+                cornerPath.addLine(to: topRightCenter)
+            }
+            
+            /// Bottom-Right
+            let bottomRightCenter = CGPoint(
+                x: rect.width - self.bottomRight,
+                y: rect.height - self.bottomRight
+            )
+            if self.bottomRight > 0 {
+                cornerPath.addArc(
+                    withCenter: bottomRightCenter,
+                    radius: self.bottomRight,
+                    startAngle: 2 * CGFloat.pi,
+                    endAngle: 2.5 * CGFloat.pi,
+                    clockwise: true
+                )
+            } else {
+                cornerPath.addLine(to: bottomRightCenter)
+            }
+            
+            /// Bottom-Left
+            let bottomLeftCenter = CGPoint(
+                x: self.bottomLeft,
+                y: rect.height - self.bottomLeft
+            )
+            if self.bottomLeft > 0 {
+                cornerPath.addArc(
+                    withCenter: bottomLeftCenter,
+                    radius: self.bottomLeft,
+                    startAngle: 2.5 * CGFloat.pi,
+                    endAngle: 3 * CGFloat.pi,
+                    clockwise: true
+                )
+            } else {
+                cornerPath.addLine(to: bottomLeftCenter)
+            }
+            
+            /// Top-Left
+            if self.topLeft > 0 {
+                cornerPath.addLine(to: CGPoint(x: 0, y: topLeftCenter.y))
+            } else {
+                cornerPath.addLine(to: topLeftCenter)
+            }
+            
+            return cornerPath
+        }
+    }
+    
+    public init(_ radius: CGFloat) {
+        self.topLeft = radius
+        self.topRight = radius
+        self.bottomLeft = radius
+        self.bottomRight = radius
+    }
+    
+    public init(topLeft: CGFloat, topRight: CGFloat, bottomLeft: CGFloat, bottomRight: CGFloat) {
+        self.topLeft = topLeft
+        self.topRight = topRight
+        self.bottomLeft = bottomLeft
+        self.bottomRight = bottomRight
+    }
+}
+
 open class UIImageChain {
     
     // MARK: - Type
     
     public struct ColorType {
-        var r: UInt16
-        var g: UInt16
-        var b: UInt16
-        var a: UInt16
+        public var r: UInt16
+        public var g: UInt16
+        public var b: UInt16
+        public var a: UInt16
         
-        init(_ colorType: ColorType) {
+        public init(_ colorType: ColorType) {
             self.r = colorType.r
             self.g = colorType.g
             self.b = colorType.b
             self.a = colorType.a
         }
-        init(_ r: UInt8, _ g: UInt8, _ b: UInt8, _ a: UInt8) {
+        public init(_ r: UInt8, _ g: UInt8, _ b: UInt8, _ a: UInt8) {
             self.r = UInt16(r)
             self.g = UInt16(g)
             self.b = UInt16(b)
             self.a = UInt16(a)
         }
-        init(_ r: UInt16, _ g: UInt16, _ b: UInt16, _ a: UInt16) {
+        public init(_ r: UInt16, _ g: UInt16, _ b: UInt16, _ a: UInt16) {
             self.r = r
             self.g = g
             self.b = b
@@ -55,6 +186,8 @@ open class UIImageChain {
     private var rotateScale: CGSize?
     private var blendMode: CGBlendMode = .normal
     private var alpha: CGFloat = 1.0
+    
+    private var clipCorner: CornerType = CornerType(0)
     
     private var margin: UIEdgeInsets = .zero
     private var padding: UIEdgeInsets = .zero
@@ -147,6 +280,10 @@ open class UIImageChain {
         self.padding = padding
         
         return self.outputSize(self.spaceSize)
+    }
+    public func corner(_ corner: CornerType) -> Self {
+        self.clipCorner = corner
+        return self
     }
     
     /// Before
@@ -887,6 +1024,11 @@ open class UIImageChain {
         /// Flip Vertical
         drawContext.concatenate(CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: CGFloat(height)))
         
+        /// Corner Radius
+        let cornerPath = self.clipCorner.clipPath(spaceRect)
+        drawContext.addPath(cornerPath.cgPath)
+        drawContext.clip()
+        
         /// Before Layer
         self.beforeLayer.forEach { $0(LayerType(drawContext, spaceRect, width, height, memoryPool)) }
         
@@ -1095,3 +1237,4 @@ public func +(lhs: UIImage?, rhs: UIImage?) -> UIImage? {
     
     return left.adjust().append(image: right).image()
 }
+
