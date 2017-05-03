@@ -86,35 +86,35 @@ Supported Features
 
 ### Common
 
- | type | comments |
- | ---- | -------- |
- | alpha() | Change the transparency of the image. |
- | alphaBlend() | Determines whether the calculation is applied to the alpha value. |
- | blendMode() | Blend mode of the image |
- | offset() | Position of the image to be drawn |
- | size() | Size of the image to be drawn |
- | outputSize() | Size of image to be output |
- | rotate() | Rotate the image |
- | scaling() | Scaling the image (ratio) |
- | margin() | Margin size |
- | padding() | Padding size |
+| type | comments |
+| ---- | -------- |
+| alpha() | Change the transparency of the image. |
+| alphaBlend() | Determines whether the calculation is applied to the alpha value. |
+| blendMode() | Blend mode of the image |
+| offset() | Position of the image to be drawn |
+| size() | Size of the image to be drawn |
+| outputSize() | Size of image to be output |
+| rotate() | Rotate the image |
+| scaling() | Scaling the image (ratio) |
+| margin() | Margin size |
+| padding() | Padding size |
 
 
 ### Before
 
- | type | comments |
- | ---- | -------- |
- | background() | Background color |
+| type | comments |
+| ---- | -------- |
+| background() | Background color |
 
 
 ### Generate
 
- | type | comments |
- | ---- | -------- |
- | border() | Draw a border |
- | rect() | Create a rectangular image |
- | circle() | Create a circle image |
- | append() | Combine images to create a single image. |
+| type | comments |
+| ---- | -------- |
+| border() | Draw a border |
+| rect() | Create a rectangular image |
+| circle() | Create a circle image |
+| append() | Combine images to create a single image. |
 
 ### Effects
 
