@@ -6,7 +6,50 @@
 //  Copyright © 2017년 Kawoou. All rights reserved.
 //
 
-import UIKit
+#if !os(OSX)
+    import UIKit
+    public typealias View = UIView
+    public typealias Image = UIImage
+    public typealias Color = UIColor
+    public typealias BezierPath = UIBezierPath
+#else
+    import AppKit
+    public typealias View = NSView
+    public typealias Image = NSImage
+    public typealias Color = NSColor
+    public typealias BezierPath = NSBezierPath
+    
+    extension NSImage {
+        fileprivate var cgImage: CGImage? {
+            get {
+                return self.cgImage(forProposedRect: nil, context: nil, hints: nil)
+            }
+        }
+    }
+    
+    extension NSBezierPath {
+        fileprivate var cgPath: CGPath {
+            let path = CGMutablePath()
+            var points = [CGPoint](repeating: .zero, count: 3)
+            
+            for i in 0 ..< self.elementCount {
+                let type = self.element(at: i, associatedPoints: &points)
+                switch type {
+                case .moveToBezierPathElement:
+                    path.move(to: points[0])
+                case .lineToBezierPathElement:
+                    path.addLine(to: points[0])
+                case .curveToBezierPathElement:
+                    path.addCurve(to: points[2], control1: points[0], control2: points[1])
+                case .closePathBezierPathElement:
+                    path.closeSubpath()
+                }
+            }
+            
+            return path
+        }
+    }
+#endif
 
 public struct CornerType {
     public var topLeft: CGFloat
@@ -33,17 +76,22 @@ public struct CornerType {
         return false
     }
     
-    public func clipPath(_ rect: CGRect) -> UIBezierPath {
+    public func clipPath(_ rect: CGRect) -> BezierPath {
         if self.isZero() {
             
-            return  UIBezierPath(rect: rect)
+            return BezierPath(rect: rect)
             
         } else if self.isUniform() {
             
-            return UIBezierPath(roundedRect: rect, cornerRadius: self.topLeft)
+            #if !os(OSX)
+                return UIBezierPath(roundedRect: rect, cornerRadius: self.topLeft)
+            #else
+                return NSBezierPath(roundedRect: rect, xRadius: self.topLeft, yRadius: self.topLeft)
+            #endif
+            
             
         } else {
-            let cornerPath = UIBezierPath()
+            let cornerPath = BezierPath()
             
             /// Top-Left
             let topLeftCenter = CGPoint(
@@ -51,13 +99,23 @@ public struct CornerType {
                 y: self.topLeft
             )
             if self.topLeft > 0 {
-                cornerPath.addArc(
-                    withCenter: topLeftCenter,
-                    radius: self.topLeft,
-                    startAngle: CGFloat.pi,
-                    endAngle: 1.5 * CGFloat.pi,
-                    clockwise: true
-                )
+                #if !os(OSX)
+                    cornerPath.addArc(
+                        withCenter: topLeftCenter,
+                        radius: self.topLeft,
+                        startAngle: CGFloat.pi,
+                        endAngle: 1.5 * CGFloat.pi,
+                        clockwise: true
+                    )
+                #else
+                    cornerPath.appendArc(
+                        withCenter: topLeftCenter,
+                        radius: self.topLeft,
+                        startAngle: CGFloat.pi,
+                        endAngle: 1.5 * CGFloat.pi,
+                        clockwise: true
+                    )
+                #endif
             } else {
                 cornerPath.move(to: topLeftCenter)
             }
@@ -68,15 +126,29 @@ public struct CornerType {
                 y: self.topRight
             )
             if self.topRight > 0 {
-                cornerPath.addArc(
-                    withCenter: topRightCenter,
-                    radius: self.topRight,
-                    startAngle: 1.5 * CGFloat.pi,
-                    endAngle: 2 * CGFloat.pi,
-                    clockwise: true
-                )
+                #if !os(OSX)
+                    cornerPath.addArc(
+                        withCenter: topRightCenter,
+                        radius: self.topRight,
+                        startAngle: 1.5 * CGFloat.pi,
+                        endAngle: 2 * CGFloat.pi,
+                        clockwise: true
+                    )
+                #else
+                    cornerPath.appendArc(
+                        withCenter: topRightCenter,
+                        radius: self.topRight,
+                        startAngle: 1.5 * CGFloat.pi,
+                        endAngle: 2 * CGFloat.pi,
+                        clockwise: true
+                    )
+                #endif
             } else {
-                cornerPath.addLine(to: topRightCenter)
+                #if !os(OSX)
+                    cornerPath.addLine(to: topRightCenter)
+                #else
+                    cornerPath.line(to: topRightCenter)
+                #endif
             }
             
             /// Bottom-Right
@@ -85,15 +157,29 @@ public struct CornerType {
                 y: rect.height - self.bottomRight
             )
             if self.bottomRight > 0 {
-                cornerPath.addArc(
-                    withCenter: bottomRightCenter,
-                    radius: self.bottomRight,
-                    startAngle: 2 * CGFloat.pi,
-                    endAngle: 2.5 * CGFloat.pi,
-                    clockwise: true
-                )
+                #if !os(OSX)
+                    cornerPath.addArc(
+                        withCenter: bottomRightCenter,
+                        radius: self.bottomRight,
+                        startAngle: 2 * CGFloat.pi,
+                        endAngle: 2.5 * CGFloat.pi,
+                        clockwise: true
+                    )
+                #else
+                    cornerPath.appendArc(
+                        withCenter: bottomRightCenter,
+                        radius: self.bottomRight,
+                        startAngle: 2 * CGFloat.pi,
+                        endAngle: 2.5 * CGFloat.pi,
+                        clockwise: true
+                    )
+                #endif
             } else {
-                cornerPath.addLine(to: bottomRightCenter)
+                #if !os(OSX)
+                    cornerPath.addLine(to: bottomRightCenter)
+                #else
+                    cornerPath.line(to: bottomRightCenter)
+                #endif
             }
             
             /// Bottom-Left
@@ -102,23 +188,45 @@ public struct CornerType {
                 y: rect.height - self.bottomLeft
             )
             if self.bottomLeft > 0 {
-                cornerPath.addArc(
-                    withCenter: bottomLeftCenter,
-                    radius: self.bottomLeft,
-                    startAngle: 2.5 * CGFloat.pi,
-                    endAngle: 3 * CGFloat.pi,
-                    clockwise: true
-                )
+                #if !os(OSX)
+                    cornerPath.addArc(
+                        withCenter: bottomLeftCenter,
+                        radius: self.bottomLeft,
+                        startAngle: 2.5 * CGFloat.pi,
+                        endAngle: 3 * CGFloat.pi,
+                        clockwise: true
+                    )
+                #else
+                    cornerPath.appendArc(
+                        withCenter: bottomLeftCenter,
+                        radius: self.bottomLeft,
+                        startAngle: 2.5 * CGFloat.pi,
+                        endAngle: 3 * CGFloat.pi,
+                        clockwise: true
+                    )
+                #endif
             } else {
-                cornerPath.addLine(to: bottomLeftCenter)
+                #if !os(OSX)
+                    cornerPath.addLine(to: bottomLeftCenter)
+                #else
+                    cornerPath.line(to: bottomLeftCenter)
+                #endif
             }
             
             /// Top-Left
-            if self.topLeft > 0 {
-                cornerPath.addLine(to: CGPoint(x: 0, y: topLeftCenter.y))
-            } else {
-                cornerPath.addLine(to: topLeftCenter)
-            }
+            #if !os(OSX)
+                if self.topLeft > 0 {
+                    cornerPath.addLine(to: CGPoint(x: 0, y: topLeftCenter.y))
+                } else {
+                    cornerPath.addLine(to: topLeftCenter)
+                }
+            #else
+                if self.topLeft > 0 {
+                    cornerPath.line(to: CGPoint(x: 0, y: topLeftCenter.y))
+                } else {
+                    cornerPath.line(to: topLeftCenter)
+                }
+            #endif
             
             return cornerPath
         }
@@ -138,8 +246,33 @@ public struct CornerType {
         self.bottomRight = bottomRight
     }
 }
+public struct EdgeInsets {
+    public var top: CGFloat
+    public var left: CGFloat
+    public var bottom: CGFloat
+    public var right: CGFloat
+    
+    public static var zero: EdgeInsets {
+        get {
+            return EdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        }
+    }
+    
+    public init() {
+        self.top = 0
+        self.left = 0
+        self.bottom = 0
+        self.right = 0
+    }
+    public init(top: CGFloat, left: CGFloat, bottom: CGFloat, right: CGFloat) {
+        self.top = top
+        self.left = left
+        self.bottom = bottom
+        self.right = right
+    }
+}
 
-open class UIImageChain {
+open class ImageChain {
     
     // MARK: - Type
     
@@ -175,7 +308,7 @@ open class UIImageChain {
     
     // MARK: - Internal
     
-    private var saveImage: UIImage
+    private var saveImage: Image
     
     private var spaceSize: CGSize
     private var isAlphaBlend: Bool = false
@@ -189,8 +322,8 @@ open class UIImageChain {
     
     private var clipCorner: CornerType = CornerType(0)
     
-    private var margin: UIEdgeInsets = .zero
-    private var padding: UIEdgeInsets = .zero
+    private var margin: EdgeInsets = .zero
+    private var padding: EdgeInsets = .zero
     
     private var beforeLayer: [(LayerType)->Void] = []
     private var afterLayer: [(LayerType)->Void] = []
@@ -226,8 +359,12 @@ open class UIImageChain {
         self.rotate = (self.rotate ?? 0) + radius
         
         let size = self.scale ?? self.saveImage.size
-        let rotateView = UIView(frame: CGRect(origin: .zero, size: size))
-        rotateView.transform = CGAffineTransform(rotationAngle: radius)
+        let rotateView = View(frame: CGRect(origin: .zero, size: size))
+        #if !os(OSX)
+            rotateView.layer.transform = CATransform3DMakeRotation(radius, 0, 0, 1)
+        #else
+            rotateView.layer?.transform = CATransform3DMakeRotation(radius, 0, 0, 1)
+        #endif
         
         self.rotateScale = rotateView.frame.size
         
@@ -261,7 +398,7 @@ open class UIImageChain {
         
         return self
     }
-    public func margin(_ margin: UIEdgeInsets) -> Self {
+    public func margin(_ margin: EdgeInsets) -> Self {
         self.spaceSize = CGSize(
             width: self.spaceSize.width + self.margin.left + self.margin.right + self.padding.left + self.padding.right,
             height: self.spaceSize.height + self.margin.top + self.margin.bottom + self.padding.top + self.padding.bottom
@@ -271,7 +408,7 @@ open class UIImageChain {
         
         return self.outputSize(self.spaceSize)
     }
-    public func padding(_ padding: UIEdgeInsets) -> Self {
+    public func padding(_ padding: EdgeInsets) -> Self {
         self.spaceSize = CGSize(
             width: self.spaceSize.width + self.margin.left + self.margin.right + self.padding.left + self.padding.right,
             height: self.spaceSize.height + self.margin.top + self.margin.bottom + self.padding.top + self.padding.bottom
@@ -287,7 +424,7 @@ open class UIImageChain {
     }
     
     /// Before
-    public func background(color: UIColor) -> Self {
+    public func background(color: Color) -> Self {
         self.beforeLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -301,7 +438,7 @@ open class UIImageChain {
     }
     
     /// After
-    public func normal(color: UIColor) -> Self {
+    public func normal(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -313,7 +450,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func multiply(color: UIColor) -> Self {
+    public func multiply(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -325,7 +462,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func lighten(color: UIColor) -> Self {
+    public func lighten(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -337,7 +474,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func darken(color: UIColor) -> Self {
+    public func darken(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -349,7 +486,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func average(color: UIColor) -> Self {
+    public func average(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -374,7 +511,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func add(color: UIColor) -> Self {
+    public func add(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -399,7 +536,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func subtract(color: UIColor) -> Self {
+    public func subtract(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -432,7 +569,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func difference(color: UIColor) -> Self {
+    public func difference(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -444,7 +581,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func negative(color: UIColor) -> Self {
+    public func negative(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -469,7 +606,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func screen(color: UIColor) -> Self {
+    public func screen(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -482,7 +619,7 @@ open class UIImageChain {
         return self
         
     }
-    public func exclusion(color: UIColor) -> Self {
+    public func exclusion(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -494,7 +631,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func overlay(color: UIColor) -> Self {
+    public func overlay(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -506,7 +643,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func softLight(color: UIColor) -> Self {
+    public func softLight(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -518,7 +655,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func hardLight(color: UIColor) -> Self {
+    public func hardLight(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -530,7 +667,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func colorDodge(color: UIColor) -> Self {
+    public func colorDodge(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -542,7 +679,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func colorBurn(color: UIColor) -> Self {
+    public func colorBurn(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -554,13 +691,13 @@ open class UIImageChain {
         }
         return self
     }
-    public func linearDodge(color: UIColor) -> Self {
+    public func linearDodge(color: Color) -> Self {
         return self.add(color: color)
     }
-    public func linearBurn(color: UIColor) -> Self {
+    public func linearBurn(color: Color) -> Self {
         return self.subtract(color: color)
     }
-    public func linearLight(color: UIColor) -> Self {
+    public func linearLight(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -597,7 +734,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func vividLight(color: UIColor) -> Self {
+    public func vividLight(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -644,7 +781,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func pinLight(color: UIColor) -> Self {
+    public func pinLight(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -678,7 +815,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func hardMix(color: UIColor) -> Self {
+    public func hardMix(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -733,7 +870,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func reflect(color: UIColor) -> Self {
+    public func reflect(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -766,7 +903,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func glow(color: UIColor) -> Self {
+    public func glow(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -799,7 +936,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func phoenix(color: UIColor) -> Self {
+    public func phoenix(color: Color) -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
         var b: CGFloat = 0
@@ -830,7 +967,7 @@ open class UIImageChain {
             return color
         }
     }
-    public func hue(color: UIColor) -> Self {
+    public func hue(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -842,7 +979,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func saturation(color: UIColor) -> Self {
+    public func saturation(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -854,7 +991,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func color(color: UIColor) -> Self {
+    public func color(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -866,7 +1003,7 @@ open class UIImageChain {
         }
         return self
     }
-    public func luminosity(color: UIColor) -> Self {
+    public func luminosity(color: Color) -> Self {
         self.afterLayer.append { context, spaceRect, _, _, _ in
             context.saveGState()
             
@@ -921,10 +1058,10 @@ open class UIImageChain {
     }
     
     /// Etc
-    public func append(_ imageChain: UIImageChain) -> Self {
+    public func append(_ imageChain: ImageChain) -> Self {
         return self.append(image: imageChain.image()!)
     }
-    public func append(image: UIImage, offset: CGPoint = .zero, size: CGSize? = nil) -> Self {
+    public func append(image: Image, offset: CGPoint = .zero, size: CGSize? = nil) -> Self {
         var size = size
         if size == nil {
             size = image.size
@@ -936,7 +1073,11 @@ open class UIImageChain {
                 height: max(self.spaceSize.height, size!.width + offset.y)
             )
             ).lastLayer.append { context, spaceRect, _, _, _ in
-                let scale = self.saveImage.scale
+                #if !os(OSX)
+                    let scale = self.saveImage.scale
+                #else
+                    let scale = CGFloat(1.0)
+                #endif
                 
                 image.draw(
                     in: CGRect(
@@ -949,10 +1090,15 @@ open class UIImageChain {
         }
         return self
     }
-    public func border(color: UIColor, lineWidth: CGFloat, radius: CGFloat) -> Self {
+    public func border(color: Color, lineWidth: CGFloat, radius: CGFloat) -> Self {
         self.lastLayer.append { context, spaceRect, _, _, _ in
-            let scale = self.saveImage.scale
-            let path: UIBezierPath
+            #if !os(OSX)
+                let scale = self.saveImage.scale
+            #else
+                let scale = CGFloat(1.0)
+            #endif
+            
+            let path: BezierPath
             
             let size = self.scale ?? self.spaceSize
             let rect = CGRect(
@@ -963,9 +1109,13 @@ open class UIImageChain {
             )
             
             if radius > 0 {
-                path = UIBezierPath(roundedRect: rect, cornerRadius: radius * 2)
+                #if !os(OSX)
+                    path = UIBezierPath(roundedRect: rect, cornerRadius: radius * 2)
+                #else
+                    path = NSBezierPath(roundedRect: rect, xRadius: radius * 2, yRadius: radius * 2)
+                #endif
             } else {
-                path = UIBezierPath(rect: rect)
+                path = BezierPath(rect: rect)
             }
             
             context.saveGState()
@@ -992,12 +1142,16 @@ open class UIImageChain {
     }
     
     /// Output
-    public func image() -> UIImage? {
+    public func image() -> Image? {
         /// Color Space
         let colorSpace = CGColorSpaceCreateDeviceRGB()
         
         /// Space Size
-        let scale = self.saveImage.scale
+        #if !os(OSX)
+            let scale = self.saveImage.scale
+        #else
+            let scale = CGFloat(1.0)
+        #endif
         let width = Int((self.spaceSize.width + self.margin.left + self.margin.right + self.padding.left + self.padding.right) * scale)
         let height = Int((self.spaceSize.height + self.margin.top + self.margin.bottom + self.padding.top + self.padding.bottom) * scale)
         
@@ -1019,10 +1173,15 @@ open class UIImageChain {
         
         /// Push Context
         guard let drawContext = context else { return nil }
-        UIGraphicsPushContext(drawContext)
         
-        /// Flip Vertical
-        drawContext.concatenate(CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: CGFloat(height)))
+        #if !os(OSX)
+            UIGraphicsBeginImageContext(spaceRect.size)
+        #endif
+        
+        #if os(iOS) || os(watchOS)
+            /// Flip Vertical
+            drawContext.concatenate(CGAffineTransform(a: 1, b: 0, c: 0, d: -1, tx: 0, ty: CGFloat(height)))
+        #endif
         
         /// Corner Radius
         let cornerPath = self.clipCorner.clipPath(spaceRect)
@@ -1042,31 +1201,37 @@ open class UIImageChain {
             drawContext.rotate(by: rotateRadius)
             drawContext.scaleBy(x: 1.0, y: -1.0)
             
-            self.saveImage.draw(
+            drawContext.setBlendMode(self.blendMode)
+            drawContext.setAlpha(self.alpha)
+            drawContext.draw(
+                self.saveImage.cgImage!,
                 in: CGRect(
                     x: (-size.width * 0.5 + (self.offset.x + self.margin.left + self.padding.left)) * scale,
                     y: (-size.height * 0.5 + (self.offset.y + self.margin.top + self.padding.top)) * scale,
                     width: size.width * scale,
                     height: size.height * scale
-                ),
-                blendMode: self.blendMode,
-                alpha: self.alpha
+                )
             )
             
             drawContext.restoreGState()
         } else {
             let size = self.scale ?? self.spaceSize
             
-            self.saveImage.draw(
+            drawContext.saveGState()
+            
+            drawContext.setBlendMode(self.blendMode)
+            drawContext.setAlpha(self.alpha)
+            drawContext.draw(
+                self.saveImage.cgImage!,
                 in: CGRect(
                     x: (self.offset.x + self.margin.left + self.padding.left) * scale,
                     y: (self.offset.y + self.margin.top + self.padding.top) * scale,
                     width: size.width * scale,
                     height: size.height * scale
-                ),
-                blendMode: self.blendMode,
-                alpha: self.alpha
+                )
             )
+            
+            drawContext.restoreGState()
         }
         
         /// After Layer
@@ -1082,11 +1247,17 @@ open class UIImageChain {
         /// Last Layer
         self.lastLayer.forEach { $0(LayerType(drawContext, spaceRect, width, height, memoryPool)) }
         
-        UIGraphicsPopContext()
+        #if !os(OSX)
+            UIGraphicsEndImageContext()
+        #endif
         
         /// Convert Image
         if let cgImage = drawContext.makeImage() {
-            return UIImage(cgImage: cgImage, scale: scale, orientation: .up)
+            #if !os(OSX)
+                return Image(cgImage: cgImage, scale: scale, orientation: .up)
+            #else
+                return Image(cgImage: cgImage, size: spaceRect.size)
+            #endif
         }
         
         return nil
@@ -1128,7 +1299,7 @@ open class UIImageChain {
     
     // MARK: - Lifecycle
     
-    fileprivate init(image: UIImage) {
+    fileprivate init(image: Image) {
         self.saveImage = image
         self.spaceSize = CGSize(
             width: self.saveImage.size.width,
@@ -1140,67 +1311,131 @@ open class UIImageChain {
     
 }
 
-extension UIImage {
+extension Image {
     
     // MARK: - Public
     
     /// Generate
-    public class func rect(color: UIColor, size: CGSize) -> UIImage? {
-        let scale = UIImage.screenScale()
+    public class func rect(color: Color, size: CGSize) -> Image? {
+        let scale = Image.screenScale()
         
         let newSize: CGSize = CGSize(
             width: scale * size.width,
             height: scale * size.height
         )
         
-        UIGraphicsBeginImageContext(newSize)
-        defer { UIGraphicsEndImageContext() }
+        #if !os(OSX)
+            UIGraphicsBeginImageContext(newSize)
+            defer { UIGraphicsEndImageContext() }
+            
+            guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        #else
+            guard let offscreenRep = NSBitmapImageRep(
+                bitmapDataPlanes: nil,
+                pixelsWide: Int(newSize.width),
+                pixelsHigh: Int(newSize.height),
+                bitsPerSample: 8,
+                samplesPerPixel: 4,
+                hasAlpha: true,
+                isPlanar: false,
+                colorSpaceName: NSDeviceRGBColorSpace,
+                bitmapFormat: .alphaFirst,
+                bytesPerRow: 0,
+                bitsPerPixel: 0
+                ) else { return nil }
+            
+            guard let graphicsContext = NSGraphicsContext(bitmapImageRep: offscreenRep) else { return nil }
+            
+            NSGraphicsContext.saveGraphicsState()
+            NSGraphicsContext.setCurrent(graphicsContext)
+            defer { NSGraphicsContext.restoreGraphicsState()}
+            
+            let context = graphicsContext.cgContext
+        #endif
         
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
         context.clear(CGRect(origin: .zero, size: newSize))
         
         context.setFillColor(color.cgColor)
         context.fill(CGRect(origin: .zero, size: newSize))
         
-        guard let imageContext = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
-        guard let cgImage = imageContext.cgImage else { return nil }
-        
-        return UIImage(
-            cgImage: cgImage,
-            scale: scale,
-            orientation: .up
-        )
+        #if !os(OSX)
+            guard let imageContext = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+            guard let cgImage = imageContext.cgImage else { return nil }
+            
+            return Image(
+                cgImage: cgImage,
+                scale: scale,
+                orientation: .up
+            )
+        #else
+            let image = Image(size: newSize)
+            image.addRepresentation(offscreenRep)
+            
+            return image
+        #endif
     }
-    public class func circle(color: UIColor, size: CGSize) -> UIImage? {
-        let scale = UIImage.screenScale()
+    public class func circle(color: Color, size: CGSize) -> Image? {
+        let scale = Image.screenScale()
         
         let newSize: CGSize = CGSize(
             width: scale * size.width,
             height: scale * size.height
         )
         
-        UIGraphicsBeginImageContext(newSize)
-        defer { UIGraphicsEndImageContext() }
+        #if !os(OSX)
+            UIGraphicsBeginImageContext(newSize)
+            defer { UIGraphicsEndImageContext() }
+            
+            guard let context = UIGraphicsGetCurrentContext() else { return nil }
+        #else
+            guard let offscreenRep = NSBitmapImageRep(
+                bitmapDataPlanes: nil,
+                pixelsWide: Int(newSize.width),
+                pixelsHigh: Int(newSize.height),
+                bitsPerSample: 8,
+                samplesPerPixel: 4,
+                hasAlpha: true,
+                isPlanar: false,
+                colorSpaceName: NSDeviceRGBColorSpace,
+                bitmapFormat: .alphaFirst,
+                bytesPerRow: 0,
+                bitsPerPixel: 0
+                ) else { return nil }
+            
+            guard let graphicsContext = NSGraphicsContext(bitmapImageRep: offscreenRep) else { return nil }
+            
+            NSGraphicsContext.saveGraphicsState()
+            NSGraphicsContext.setCurrent(graphicsContext)
+            defer { NSGraphicsContext.restoreGraphicsState()}
+            
+            let context = graphicsContext.cgContext
+        #endif
         
-        guard let context = UIGraphicsGetCurrentContext() else { return nil }
         context.clear(CGRect(origin: .zero, size: newSize))
         
         context.setFillColor(color.cgColor)
         context.fillEllipse(in: CGRect(origin: .zero, size: newSize))
         
-        guard let imageContext = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
-        guard let cgImage = imageContext.cgImage else { return nil }
-        
-        return UIImage(
-            cgImage: cgImage,
-            scale: scale,
-            orientation: .up
-        )
+        #if !os(OSX)
+            guard let imageContext = UIGraphicsGetImageFromCurrentImageContext() else { return nil }
+            guard let cgImage = imageContext.cgImage else { return nil }
+            
+            return Image(
+                cgImage: cgImage,
+                scale: scale,
+                orientation: .up
+            )
+        #else
+            let image = Image(size: newSize)
+            image.addRepresentation(offscreenRep)
+            
+            return image
+        #endif
     }
     
     /// Adjust
-    public func adjust() -> UIImageChain {
-        return UIImageChain(image: self)
+    public func adjust() -> ImageChain {
+        return ImageChain(image: self)
     }
     
     
@@ -1208,14 +1443,16 @@ extension UIImage {
     
     private class func screenScale() -> CGFloat {
         // over iOS 8
-        if #available(iOS 8, *) {
-            return UIScreen.main.nativeScale
-        }
-        
-        // over iOS 4
-        if #available(iOS 4, *) {
-            return UIScreen.main.scale
-        }
+        #if os(iOS)
+            if #available(iOS 8, *) {
+                return UIScreen.main.nativeScale
+            }
+            
+            // over iOS 4
+            if #available(iOS 4, *) {
+                return UIScreen.main.scale
+            }
+        #endif
         
         return 1.0
     }
@@ -1223,18 +1460,23 @@ extension UIImage {
     
     // MARK: - Lifecycle
     
-    public convenience init?(_ chain: UIImageChain) {
+    public convenience init?(_ chain: ImageChain) {
         let image = chain.image()
         
-        self.init(cgImage: (image ?? UIImage.rect(color: .white, size: CGSize(width: 1, height: 1)))!.cgImage!)
+        #if !os(OSX)
+            self.init(cgImage: (image ?? Image.rect(color: .white, size: CGSize(width: 1, height: 1)))!.cgImage!)
+        #else
+            self.init(cgImage: (image ?? Image.rect(color: .white, size: CGSize(width: 1, height: 1)))!.cgImage!, size: CGSize(width: 1, height: 1))
+        #endif
     }
     
 }
 
-public func +(lhs: UIImage?, rhs: UIImage?) -> UIImage? {
+public func +(lhs: Image?, rhs: Image?) -> Image? {
     guard let left = lhs else { return rhs }
     guard let right = rhs else { return lhs }
     
     return left.adjust().append(image: right).image()
 }
+
 

@@ -7,8 +7,8 @@ let image1 = UIImage
     )?
     .adjust()
     .offset(CGPoint(x: 25, y: 0))
-    .margin(UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
-    .padding(UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
+    .margin(EdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+    .padding(EdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
     .normal(color: UIColor.white)
     .border(color: UIColor.red, lineWidth: 5, radius: 50)
     .image()?
