@@ -23,7 +23,7 @@ pod 'FlexibleImage', '~> 1.2'
 
 ### Manually
 
-You can either simply drag and drop the `FlexibleImage` folder into your existing project.
+You can either simply drag and drop the `Source` folder into your existing project.
 
 
 Usage
@@ -84,6 +84,11 @@ let image6 = image5?.adjust()
     .corner(CornerType(25))
     .image()
 ```
+
+
+Playground
+----------
+Use CocoaPods command `$ pod try FlexibleImage` to try Playground!
 
 
 Supported Features
@@ -154,6 +159,7 @@ Supported Features
 - color
 - luminosity
 
+### Filters
 
 - greyscale
 - invert
@@ -170,10 +176,10 @@ Changelog
 Requirements
 --------------
 
- - iOS 8.0+
- - tvOS 9.0+
- - macOS 10.10+
- - Swift 3.0+
+- iOS 8.0+
+- tvOS 9.0+
+- macOS 10.10+
+- Swift 3.0+
 
 
 License
