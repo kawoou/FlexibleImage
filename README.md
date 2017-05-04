@@ -7,8 +7,8 @@ FlexibleImage
 [![Pod License](http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat)](https://github.com/kawoou/FlexibleImage/blob/master/LICENSE)
 
 A simple way to play with image!
+
 This project can apply effects to images by chaining.
-Also, Works on iOS, watchOS, macOS, tvOS
 
 
 Installation
