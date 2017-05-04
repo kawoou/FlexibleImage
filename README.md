@@ -86,8 +86,8 @@ let image6 = image5?.adjust()
 ```
 
 
-Playground
-----------
+### Playground
+
 Use CocoaPods command `$ pod try FlexibleImage` to try Playground!
 
 
