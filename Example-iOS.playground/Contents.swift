@@ -22,6 +22,7 @@ let image3 = image2?.adjust()
     .outputSize(CGSize(width: 250, height: 250))
     .exclusion(color: UIColor(red: 0, green: 0, blue: 0.352941176, alpha: 1.0))
     .linearDodge(color: UIColor(red: 0.125490196, green: 0.058823529, blue: 0.192156863, alpha: 1.0))
+    .corner(CornerType(60))
     .image()
 
 let image4 = image3?.adjust()
@@ -39,10 +40,12 @@ let image5 = image4?.adjust()
 let image6 = image4 + image1
 
 let image7 = image3?.adjust()
-    .corner(CornerType(25))
+    .rotate(15 * CGFloat.pi / 180)
     .image()
 
-
+let image8 = image2?.adjust()
+    .solarize()
+    .image()
 
 
 

@@ -2,8 +2,8 @@ FlexibleImage
 =============
 
 ![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
-[![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.2)
-[![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.2)
+[![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.3)
+[![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.3)
 [![Pod License](http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat)](https://github.com/kawoou/FlexibleImage/blob/master/LICENSE)
 
 A simple way to play with image!
@@ -17,7 +17,7 @@ Installation
 KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/cocoapods). Add the following to your Podfile:
 
 ```ruby
-pod 'FlexibleImage', '~> 1.2'
+pod 'FlexibleImage', '~> 1.3'
 ```
 
 
@@ -161,8 +161,15 @@ Supported Features
 
 ### Filters
 
-- greyscale
-- invert
+| type | comments |
+| ---- | -------- |
+| greyscale() | Grayscale effect on image |
+| invert() | Invert effect on image |
+| sepia() | Sepia effect on image |
+| monochrome() | Monochrome effect on image |
+| vibrance() | Vibrance effect on image |
+| solarize() | Solarize effect on image |
+| posterize() | Posterize effect on image |
 
 
 Changelog
@@ -171,6 +178,7 @@ Changelog
 + 1.0 First Release.
 + 1.1 Add to clipping corner radius.
 + 1.2 Support tvOS, macOS.
++ 1.3 Support watchOS, Add effects monochrome, sepia, vibrance, solarize, posterize, Update resize methods.
 
 
 Requirements
@@ -179,6 +187,7 @@ Requirements
 - iOS 8.0+
 - tvOS 9.0+
 - macOS 10.10+
+- watchOS 2.0+
 - Swift 3.0+
 
 

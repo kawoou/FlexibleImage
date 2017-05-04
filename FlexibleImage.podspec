@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'FlexibleImage'
-  s.version      = '1.2'
+  s.version      = '1.3'
   s.summary      = 'A simple way to play with image!'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.homepage     = 'https://github.com/Kawoou/FlexibleImage'
@@ -15,4 +15,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
   s.osx.deployment_target = '10.10'
+  s.watchos.deployment_target = '2.0'
+
 end
