@@ -13,6 +13,8 @@
 		9DF90E971EBA512B002B0CBD /* FlexibleImageMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF90E951EBA512B002B0CBD /* FlexibleImageMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DF90E9B1EBA5134002B0CBD /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D220F041EBA4CC900AFDB9E /* FlexibleImage.swift */; };
 		9DF90EA11EBA5594002B0CBD /* FlexibleImageIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF90E9D1EBA5155002B0CBD /* FlexibleImageIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DF90EAB1EBB52A6002B0CBD /* FlexibleImageWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF90EA91EBB52A6002B0CBD /* FlexibleImageWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9DF90EAF1EBB52BB002B0CBD /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D220F041EBA4CC900AFDB9E /* FlexibleImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,9 @@
 		9DF90E961EBA512B002B0CBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DF90E9D1EBA5155002B0CBD /* FlexibleImageIOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlexibleImageIOS.h; sourceTree = "<group>"; };
 		9DF90E9E1EBA5155002B0CBD /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9DF90EA71EBB52A6002B0CBD /* FlexibleImageWatchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexibleImageWatchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9DF90EA91EBB52A6002B0CBD /* FlexibleImageWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlexibleImageWatchOS.h; sourceTree = "<group>"; };
+		9DF90EAA1EBB52A6002B0CBD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +55,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		9DF90EA31EBB52A6002B0CBD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -68,6 +80,7 @@
 				9DF90E9C1EBA5155002B0CBD /* FlexibleImageiOS */,
 				9DF90E861EBA50EB002B0CBD /* FlexibleImageTvOS */,
 				9DF90E941EBA512B002B0CBD /* FlexibleImageMacOS */,
+				9DF90EA81EBB52A6002B0CBD /* FlexibleImageWatchOS */,
 				9DA4D9BD1EB967DC00372006 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -78,6 +91,7 @@
 				9DA4D9BC1EB967DC00372006 /* FlexibleImageIOS.framework */,
 				9DF90E851EBA50EB002B0CBD /* FlexibleImageTvOS.framework */,
 				9DF90E931EBA512B002B0CBD /* FlexibleImageMacOS.framework */,
+				9DF90EA71EBB52A6002B0CBD /* FlexibleImageWatchOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -109,6 +123,15 @@
 			path = FlexibleImageiOS;
 			sourceTree = "<group>";
 		};
+		9DF90EA81EBB52A6002B0CBD /* FlexibleImageWatchOS */ = {
+			isa = PBXGroup;
+			children = (
+				9DF90EA91EBB52A6002B0CBD /* FlexibleImageWatchOS.h */,
+				9DF90EAA1EBB52A6002B0CBD /* Info.plist */,
+			);
+			path = FlexibleImageWatchOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -133,6 +156,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DF90E971EBA512B002B0CBD /* FlexibleImageMacOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DF90EA41EBB52A6002B0CBD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DF90EAB1EBB52A6002B0CBD /* FlexibleImageWatchOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,6 +224,24 @@
 			productReference = 9DF90E931EBA512B002B0CBD /* FlexibleImageMacOS.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		9DF90EA61EBB52A6002B0CBD /* FlexibleImageWatchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9DF90EAE1EBB52A6002B0CBD /* Build configuration list for PBXNativeTarget "FlexibleImageWatchOS" */;
+			buildPhases = (
+				9DF90EA21EBB52A6002B0CBD /* Sources */,
+				9DF90EA31EBB52A6002B0CBD /* Frameworks */,
+				9DF90EA41EBB52A6002B0CBD /* Headers */,
+				9DF90EA51EBB52A6002B0CBD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlexibleImageWatchOS;
+			productName = FlexibleImageWatchOS;
+			productReference = 9DF90EA71EBB52A6002B0CBD /* FlexibleImageWatchOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -218,6 +267,11 @@
 						DevelopmentTeam = 4U2J29Y5X8;
 						ProvisioningStyle = Automatic;
 					};
+					9DF90EA61EBB52A6002B0CBD = {
+						CreatedOnToolsVersion = 8.3.1;
+						DevelopmentTeam = 4U2J29Y5X8;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 9DA4D9B61EB967DC00372006 /* Build configuration list for PBXProject "FlexibleImage" */;
@@ -235,6 +289,7 @@
 				9DA4D9BB1EB967DC00372006 /* FlexibleImageIOS */,
 				9DF90E841EBA50EB002B0CBD /* FlexibleImageTvOS */,
 				9DF90E921EBA512B002B0CBD /* FlexibleImageMacOS */,
+				9DF90EA61EBB52A6002B0CBD /* FlexibleImageWatchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -255,6 +310,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		9DF90E911EBA512B002B0CBD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DF90EA51EBB52A6002B0CBD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -285,6 +347,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				9DF90E9B1EBA5134002B0CBD /* FlexibleImage.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9DF90EA21EBB52A6002B0CBD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9DF90EAF1EBB52BB002B0CBD /* FlexibleImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,6 +593,52 @@
 			};
 			name = Release;
 		};
+		9DF90EAC1EBB52A6002B0CBD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4U2J29Y5X8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = FlexibleImageWatchOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.kawoou.FlexibleImage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		9DF90EAD1EBB52A6002B0CBD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 4U2J29Y5X8;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = FlexibleImageWatchOS/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.kawoou.FlexibleImage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -558,6 +674,15 @@
 			buildConfigurations = (
 				9DF90E991EBA512B002B0CBD /* Debug */,
 				9DF90E9A1EBA512B002B0CBD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9DF90EAE1EBB52A6002B0CBD /* Build configuration list for PBXNativeTarget "FlexibleImageWatchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9DF90EAC1EBB52A6002B0CBD /* Debug */,
+				9DF90EAD1EBB52A6002B0CBD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
