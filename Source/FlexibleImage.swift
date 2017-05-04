@@ -250,6 +250,17 @@ public struct EdgeInsets {
     public var bottom: CGFloat
     public var right: CGFloat
     
+    public var vertical: CGFloat {
+        get {
+            return self.top + self.bottom
+        }
+    }
+    public var horizontal: CGFloat {
+        get {
+            return self.left + self.right
+        }
+    }
+    
     public static var zero: EdgeInsets {
         get {
             return EdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -1243,8 +1254,6 @@ open class ImageChain {
     
     /// Output
     public func image() -> Image? {
-        /// Color Space
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
         
         /// Space Size
         #if !os(OSX)
@@ -1252,10 +1261,18 @@ open class ImageChain {
         #else
             let scale = CGFloat(1.0)
         #endif
-        let width = Int((self.spaceSize.width + self.margin.left + self.margin.right + self.padding.left + self.padding.right) * scale)
-        let height = Int((self.spaceSize.height + self.margin.top + self.margin.bottom + self.padding.top + self.padding.bottom) * scale)
         
-        let spaceRect = CGRect(x: 0, y: 0, width: width, height: height)
+        let tempW = self.spaceSize.width + self.margin.horizontal + self.padding.horizontal
+        let tempH = self.spaceSize.height + self.margin.vertical + self.padding.vertical
+        let width = Int(tempW * scale)
+        let height = Int(tempH * scale)
+        
+        let spaceRect = CGRect(
+            x: 0,
+            y: 0,
+            width: width,
+            height: height
+        )
         
         /// Alloc Memory
         let memorySize = width * height * 4
@@ -1266,8 +1283,11 @@ open class ImageChain {
         /// Create Context
         let context = CGContext(
             data: memoryPool,
-            width: width, height: height, bitsPerComponent: 8, bytesPerRow: width * 4,
-            space: colorSpace,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: width * 4,
+            space: CGColorSpaceCreateDeviceRGB(),
             bitmapInfo: CGBitmapInfo(rawValue: CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue).rawValue
         )
         
@@ -1284,24 +1304,31 @@ open class ImageChain {
         drawContext.clip()
         
         /// Before Layer
-        self.beforeLayer.forEach { $0(LayerType(drawContext, spaceRect, width, height, memoryPool)) }
+        self.beforeLayer.forEach {
+            $0(LayerType(drawContext, spaceRect, width, height, memoryPool))
+        }
         
         /// Draw
         let size = self.scale ?? self.spaceSize
+        let tempX = self.offset.x + self.margin.left + self.padding.left
+        let tempY = self.offset.y + self.margin.top + self.padding.top
         
         drawContext.saveGState()
         drawContext.setBlendMode(self.blendMode)
         drawContext.setAlpha(self.alpha)
         
         if let rotateRadius = self.rotate {
-            drawContext.translateBy(x: self.spaceSize.width * 0.5, y: self.spaceSize.height * 0.5)
+            drawContext.translateBy(
+                x: self.spaceSize.width * 0.5,
+                y: self.spaceSize.height * 0.5
+            )
             drawContext.rotate(by: rotateRadius)
             
             drawContext.draw(
                 self.saveImage.cgImage!,
                 in: CGRect(
-                    x: (-size.width * 0.5 + (self.offset.x + self.margin.left + self.padding.left)) * scale,
-                    y: (-size.height * 0.5 + (self.offset.y + self.margin.top + self.padding.top)) * scale,
+                    x: (-size.width * 0.5 + tempX) * scale,
+                    y: (-size.height * 0.5 + tempY) * scale,
                     width: size.width * scale,
                     height: size.height * scale
                 )
@@ -1310,8 +1337,8 @@ open class ImageChain {
             drawContext.draw(
                 self.saveImage.cgImage!,
                 in: CGRect(
-                    x: (self.offset.x + self.margin.left + self.padding.left) * scale,
-                    y: (self.offset.y + self.margin.top + self.padding.top) * scale,
+                    x: tempX * scale,
+                    y: tempY * scale,
                     width: size.width * scale,
                     height: size.height * scale
                 )
@@ -1324,11 +1351,15 @@ open class ImageChain {
         if !self.isAlphaBlend {
             drawContext.clip(to: spaceRect, mask: drawContext.makeImage()!)
         }
-        self.afterLayer.forEach { $0(LayerType(drawContext, spaceRect, width, height, memoryPool)) }
+        self.afterLayer.forEach {
+            $0(LayerType(drawContext, spaceRect, width, height, memoryPool))
+        }
         drawContext.restoreGState()
         
         /// Last Layer
-        self.lastLayer.forEach { $0(LayerType(drawContext, spaceRect, width, height, memoryPool)) }
+        self.lastLayer.forEach {
+            $0(LayerType(drawContext, spaceRect, width, height, memoryPool))
+        }
         
         #if !os(OSX)
             UIGraphicsEndImageContext()
@@ -1351,7 +1382,7 @@ open class ImageChain {
     
     private func generateAlgorithmClosure(
         algorithm: @escaping AlgorithmType
-        ) -> ((LayerType)->Void) {
+    ) -> ((LayerType)->Void) {
         return { _, _, width, height, memoryPool in
             
             var index = 0
