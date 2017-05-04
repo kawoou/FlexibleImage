@@ -1029,6 +1029,30 @@ open class ImageChain {
             return color
         }
     }
+    public func monochrome() -> Self {
+        func monochrome(_ a: UInt16, _ l: CGFloat, _ d: CGFloat) -> UInt16 {
+            if l < 0.5 {
+                return UInt16(2.0 * l * d * 255)
+            } else {
+                let l = 1.0 - l
+                let d = 1.0 - d
+                return 255 - UInt16(2.0 * l * d * 255)
+            }
+        }
+        
+        return self.algorithm { x, y, c -> ColorType in
+            var color = c
+            let luminance = min(1.0, CGFloat(color.r) * 0.2125 + CGFloat(color.g) * 0.7154 + CGFloat(color.b) * 0.0721)
+            
+            if color.a > 0 {
+                color.r = monochrome(color.r, luminance, 0.6)
+                color.g = monochrome(color.g, luminance, 0.45)
+                color.b = monochrome(color.b, luminance, 0.3)
+            }
+            
+            return color
+        }
+    }
     public func invert() -> Self {
         var r: CGFloat = 0
         var g: CGFloat = 0
@@ -1052,6 +1076,72 @@ open class ImageChain {
             color.r = UInt16(max(0, (1.0 - r) * a))
             color.g = UInt16(max(0, (1.0 - g) * a))
             color.b = UInt16(max(0, (1.0 - b) * a))
+            
+            return color
+        }
+    }
+    public func sepia() -> Self {
+        return self.algorithm { x, y, c -> ColorType in
+            var color = c
+            if color.a > 0 {
+                color.r = UInt16(CGFloat(color.r) * 0.393 + CGFloat(color.g) * 0.769 + CGFloat(color.b) * 0.189)
+                color.g = UInt16(CGFloat(color.r) * 0.349 + CGFloat(color.g) * 0.686 + CGFloat(color.b) * 0.168)
+                color.b = UInt16(CGFloat(color.r) * 0.272 + CGFloat(color.g) * 0.534 + CGFloat(color.b) * 0.131)
+            }
+            
+            return color
+        }
+    }
+    public func vibrance(_ vibrance: CGFloat = 0.0) -> Self {
+        let vibranceOffset = -vibrance * 3.0
+        func vibrance(_ a: UInt16, _ mx: CGFloat, _ amt: CGFloat) -> UInt16 {
+            let first = CGFloat(a) * (1.0 - amt)
+            let second = mx * amt
+            return UInt16(first + second)
+        }
+        return self.algorithm { x, y, c -> ColorType in
+            var color = c
+            let avg = CGFloat(color.r + color.g + color.b) / 3.0
+            let mx = CGFloat(max(color.r, max(color.g, color.b)))
+            let amt = (mx - avg) / 255.0 * vibranceOffset
+            
+            if color.a > 0 {
+                color.r = vibrance(color.r, mx, amt)
+                color.g = vibrance(color.g, mx, amt)
+                color.b = vibrance(color.b, mx, amt)
+            }
+            
+            return color
+        }
+    }
+    public func solarize(_ threshold: CGFloat = 0.5) -> Self {
+        return self.algorithm { x, y, c -> ColorType in
+            var color = c
+            var l = CGFloat(color.r) * 0.2125 + CGFloat(color.g) * 0.7154 + CGFloat(color.b) * 0.0721
+            var t = (threshold >= l) ? 255 : 0
+            
+            if color.a > 0 {
+                color.r = UInt16(fabs(t - CGFloat(color.r)))
+                color.g = UInt16(fabs(t - CGFloat(color.g)))
+                color.b = UInt16(fabs(t - CGFloat(color.b)))
+            }
+            
+            return color
+        }
+    }
+    public func posterize(_ colorLevel: CGFloat = 10.0) -> Self {
+        func posterize(_ a: UInt16) -> UInt16 {
+            let first = CGFloat(a) * colorLevel / 255.0 + 0.5
+            let second = floor(first) / colorLevel
+            return UInt16(second * 255.0)
+        }
+        return self.algorithm { x, y, c -> ColorType in
+            var color = c
+            if color.a > 0 {
+                color.r = posterize(color.r)
+                color.g = posterize(color.g)
+                color.b = posterize(color.b)
+            }
             
             return color
         }
