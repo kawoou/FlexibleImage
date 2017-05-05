@@ -32,22 +32,6 @@ github "kawoou/FlexibleImage" ~> 1.4
 ```
 
 
-### [Swift Package Manager](https://swift.org/package-manager)
-
-```swift
-import PackageDescription
-
-let package = Package(
-  name: "MyAwesomeApp",
-  dependencies: [
-    ...
-    .Package(url: "https://github.com/kawoou/FlexibleImage", "1.4"),
-    ...
-  ]
-)
-```
-
-
 ### Manually
 
 You can either simply drag and drop the `Source` folder into your existing project.
