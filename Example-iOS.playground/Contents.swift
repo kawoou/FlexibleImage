@@ -47,5 +47,9 @@ let image8 = image2?.adjust()
     .solarize()
     .image()
 
+let image9 = image5?.adjust()
+    .blur(8)
+    .image()
+
 
 

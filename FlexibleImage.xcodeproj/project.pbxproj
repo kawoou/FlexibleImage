@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9D220F071EBA4DC900AFDB9E /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D220F041EBA4CC900AFDB9E /* FlexibleImage.swift */; };
+		9D0E6CD01EBCB7220085D196 /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0E6CCF1EBCB7220085D196 /* FlexibleImage.swift */; };
+		9D0E6CD11EBCB7220085D196 /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0E6CCF1EBCB7220085D196 /* FlexibleImage.swift */; };
+		9D0E6CD21EBCB7220085D196 /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0E6CCF1EBCB7220085D196 /* FlexibleImage.swift */; };
+		9D0E6CD31EBCB7220085D196 /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D0E6CCF1EBCB7220085D196 /* FlexibleImage.swift */; };
 		9DF90E891EBA50EB002B0CBD /* FlexibleImageTvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF90E871EBA50EB002B0CBD /* FlexibleImageTvOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9DF90E8D1EBA50F7002B0CBD /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D220F041EBA4CC900AFDB9E /* FlexibleImage.swift */; };
 		9DF90E971EBA512B002B0CBD /* FlexibleImageMacOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF90E951EBA512B002B0CBD /* FlexibleImageMacOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9DF90E9B1EBA5134002B0CBD /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D220F041EBA4CC900AFDB9E /* FlexibleImage.swift */; };
 		9DF90EA11EBA5594002B0CBD /* FlexibleImageIOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF90E9D1EBA5155002B0CBD /* FlexibleImageIOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9DF90EAB1EBB52A6002B0CBD /* FlexibleImageWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 9DF90EA91EBB52A6002B0CBD /* FlexibleImageWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		9DF90EAF1EBB52BB002B0CBD /* FlexibleImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D220F041EBA4CC900AFDB9E /* FlexibleImage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9D220F041EBA4CC900AFDB9E /* FlexibleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleImage.swift; sourceTree = "<group>"; };
+		9D0E6CCF1EBCB7220085D196 /* FlexibleImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlexibleImage.swift; sourceTree = "<group>"; };
 		9DA4D9BC1EB967DC00372006 /* FlexibleImageIOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexibleImageIOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF90E851EBA50EB002B0CBD /* FlexibleImageTvOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlexibleImageTvOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DF90E871EBA50EB002B0CBD /* FlexibleImageTvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FlexibleImageTvOS.h; sourceTree = "<group>"; };
@@ -65,18 +65,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9D220F031EBA4CC900AFDB9E /* Source */ = {
+		9D0E6CCE1EBCB7220085D196 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				9D220F041EBA4CC900AFDB9E /* FlexibleImage.swift */,
+				9D0E6CCF1EBCB7220085D196 /* FlexibleImage.swift */,
 			);
-			path = Source;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		9DA4D9B21EB967DC00372006 = {
 			isa = PBXGroup;
 			children = (
-				9D220F031EBA4CC900AFDB9E /* Source */,
+				9D0E6CCE1EBCB7220085D196 /* Sources */,
 				9DF90E9C1EBA5155002B0CBD /* FlexibleImageiOS */,
 				9DF90E861EBA50EB002B0CBD /* FlexibleImageTvOS */,
 				9DF90E941EBA512B002B0CBD /* FlexibleImageMacOS */,
@@ -330,7 +330,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D220F071EBA4DC900AFDB9E /* FlexibleImage.swift in Sources */,
+				9D0E6CD01EBCB7220085D196 /* FlexibleImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,7 +338,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DF90E8D1EBA50F7002B0CBD /* FlexibleImage.swift in Sources */,
+				9D0E6CD11EBCB7220085D196 /* FlexibleImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,7 +346,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DF90E9B1EBA5134002B0CBD /* FlexibleImage.swift in Sources */,
+				9D0E6CD21EBCB7220085D196 /* FlexibleImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -354,7 +354,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9DF90EAF1EBB52BB002B0CBD /* FlexibleImage.swift in Sources */,
+				9D0E6CD31EBCB7220085D196 /* FlexibleImage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

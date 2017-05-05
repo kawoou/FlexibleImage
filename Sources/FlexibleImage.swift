@@ -48,6 +48,7 @@
         }
     }
 #endif
+import Accelerate
 
 public struct CornerType {
     public var topLeft: CGFloat
@@ -1166,6 +1167,54 @@ open class ImageChain {
             
             return color
         }
+    }
+    public func blur(_ blurRadius: CGFloat = 20.0) -> Self {
+        #if !os(OSX)
+            let scale = self.saveImage.scale
+        #else
+            let scale = CGFloat(1.0)
+        #endif
+        let blurRadius = blurRadius * scale
+        
+        self.afterLayer.append { context, spaceRect, width, height, memoryPool in
+            /// Source Buffer
+            var srcBuffer = vImage_Buffer(
+                data: memoryPool,
+                height: UInt(context.height),
+                width: UInt(context.width),
+                rowBytes: context.bytesPerRow
+            )
+            
+            /// Alloc Memory
+            let destMemorySize = width * height * 4
+            let destMemoryPool = UnsafeMutablePointer<UInt8>.allocate(capacity: destMemorySize)
+            defer { destMemoryPool.deallocate(capacity: destMemorySize) }
+            memcpy(destMemoryPool, memoryPool, destMemorySize)
+            
+            /// Destination Buffer
+            var destBuffer = vImage_Buffer(
+                data: destMemoryPool,
+                height: vImagePixelCount(context.height),
+                width: vImagePixelCount(context.width),
+                rowBytes: context.bytesPerRow
+            )
+            
+            /// Effect
+            let d1 = blurRadius * 3.0 * sqrt(2 * CGFloat.pi) / 4
+            let d2 = floor(d1 + 0.5)
+            
+            var radius = UInt32(d2)
+            if radius % 2 != 1 {
+                radius += 1
+            }
+            
+            let flags = vImage_Flags(kvImageEdgeExtend)
+            vImageBoxConvolve_ARGB8888(&destBuffer, &srcBuffer, nil, 0, 0, radius, radius, nil, flags)
+            vImageBoxConvolve_ARGB8888(&srcBuffer, &destBuffer, nil, 0, 0, radius, radius, nil, flags)
+            vImageBoxConvolve_ARGB8888(&destBuffer, &srcBuffer, nil, 0, 0, radius, radius, nil, flags)
+        }
+        return self
+        
     }
     
     /// Etc
