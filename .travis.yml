@@ -3,7 +3,7 @@ osx_image: xcode8
 
 env:
   global:
-  - WORKSPACE=FlexibleImage.xcworkspace
+  - PROJECT=FlexibleImage.xcodeproj
   - IOS_FRAMEWORK_SCHEME="FlexibleImageIOS"
   - MACOS_FRAMEWORK_SCHEME="FlexibleImageMacOS"
   - TVOS_FRAMEWORK_SCHEME="FlexibleImageTvOS"
@@ -29,8 +29,8 @@ script:
   - xcodebuild -version
   - xcodebuild -showsdks
 
-  - xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty -c
-  - xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty -c
+  - xcodebuild -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build
+  - xcodebuild -project "$PROJECT" -scheme "$SCHEME" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO build
 
   - if [ $POD_LINT == "YES" ]; then
       pod lib lint;
