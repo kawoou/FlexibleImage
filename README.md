@@ -2,9 +2,11 @@ FlexibleImage
 =============
 
 ![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
-[![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.3)
-[![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.3)
+[![Build Status](https://travis-ci.org/kawoou/FlexibleImage.svg?branch=master)](https://travis-ci.org/kawoou/FlexibleImage)
+[![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage)
+[![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage)
 [![Pod License](http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat)](https://github.com/kawoou/FlexibleImage/blob/master/LICENSE)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 A simple way to play with image!
 
@@ -14,12 +16,35 @@ This project can apply effects to images by chaining.
 Installation
 ------------
 
-### CocoaPods (For iOS 8+ projects)
+### [CocoaPods](https://cocoapods.org) (For iOS 8+ projects)
 
 KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/cocoapods). Add the following to your Podfile:
 
 ```ruby
-pod 'FlexibleImage', '~> 1.3'
+pod 'FlexibleImage', '~> 1.4'
+```
+
+
+### [Carthage](https://github.com/Carthage/Carthage) (For iOS 8+ projects)
+
+```
+github "kawoou/FlexibleImage" ~> 1.4
+```
+
+
+### [Swift Package Manager](https://swift.org/package-manager)
+
+```swift
+import PackageDescription
+
+let package = Package(
+  name: "MyAwesomeApp",
+  dependencies: [
+    ...
+    .Package(url: "https://github.com/kawoou/FlexibleImage", "1.4"),
+    ...
+  ]
+)
 ```
 
 
@@ -181,6 +206,7 @@ Changelog
 + 1.1 Add to clipping corner radius.
 + 1.2 Support tvOS, macOS.
 + 1.3 Support watchOS, Add effects monochrome, sepia, vibrance, solarize, posterize, Update resize methods.
++ 1.4 Optimize build time, Setup TravisCI, Support carthage and swift package manager, Add blur effect(only iOS, macOS, tvOS)
 
 
 Requirements

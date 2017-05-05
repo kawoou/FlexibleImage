@@ -42,3 +42,8 @@ let image6 = image4 + image1
 let image7 = image3?.adjust()
     .rotate(15 * CGFloat.pi / 180)
     .image()
+
+let image9 = image5?.adjust()
+    .blur(8)
+    .image()
+
