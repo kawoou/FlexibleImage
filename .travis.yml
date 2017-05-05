@@ -3,7 +3,7 @@ osx_image: xcode8
 
 env:
   global:
-  - PROJECT=FlexibleImage.xcodeproj
+  - PROJECT="FlexibleImage.xcodeproj"
   - IOS_FRAMEWORK_SCHEME="FlexibleImageIOS"
   - MACOS_FRAMEWORK_SCHEME="FlexibleImageMacOS"
   - TVOS_FRAMEWORK_SCHEME="FlexibleImageTvOS"
