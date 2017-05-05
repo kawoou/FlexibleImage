@@ -2,7 +2,7 @@ FlexibleImage
 =============
 
 ![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
-[![Build Status](https://travis-ci.org/kawoou/FlexibleImage.svg?branch=master)](https://travis-ci.org/kawoou/FlexibleImage)
+[![Build Status](https://travis-ci.org/Kawoou/FlexibleImage.svg?branch=master)](https://travis-ci.org/Kawoou/FlexibleImage)
 [![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage)
 [![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage)
 [![Pod License](http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat)](https://github.com/kawoou/FlexibleImage/blob/master/LICENSE)
@@ -181,6 +181,7 @@ Supported Features
 | vibrance() | Vibrance effect on image |
 | solarize() | Solarize effect on image |
 | posterize() | Posterize effect on image |
+| blur() | Blur effect on image(only iOS, macOS, tvOS) |
 
 
 Changelog
@@ -190,7 +191,7 @@ Changelog
 + 1.1 Add to clipping corner radius.
 + 1.2 Support tvOS, macOS.
 + 1.3 Support watchOS, Add effects monochrome, sepia, vibrance, solarize, posterize, Update resize methods.
-+ 1.4 Optimize build time, Setup TravisCI, Support carthage and swift package manager, Add blur effect(only iOS, macOS, tvOS)
++ 1.4 Optimize build time, Setup TravisCI, Support carthage and swift package manager, Add blur effect
 
 
 Requirements
