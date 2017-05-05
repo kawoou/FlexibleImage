@@ -2,9 +2,11 @@ FlexibleImage
 =============
 
 ![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
-[![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.4)
-[![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.4)
+[![Build Status](https://travis-ci.org/kawoou/FlexibleImage.svg?branch=master)](https://travis-ci.org/kawoou/FlexibleImage)
+[![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage)
+[![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage)
 [![Pod License](http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat)](https://github.com/kawoou/FlexibleImage/blob/master/LICENSE)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 A simple way to play with image!
 
@@ -12,12 +14,35 @@ A simple way to play with image!
 Installation
 ------------
 
-### CocoaPods (For iOS 8+ projects)
+### [CocoaPods](https://cocoapods.org) (For iOS 8+ projects)
 
 KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/cocoapods). Add the following to your Podfile:
 
 ```ruby
 pod 'FlexibleImage', '~> 1.4'
+```
+
+
+### [Carthage](https://github.com/Carthage/Carthage) (For iOS 8+ projects)
+
+```
+github "kawoou/FlexibleImage" ~> 1.4
+```
+
+
+### [Swift Package Manager](https://swift.org/package-manager)
+
+```swift
+import PackageDescription
+
+let package = Package(
+  name: "MyAwesomeApp",
+  dependencies: [
+    ...
+    .Package(url: "https://github.com/kawoou/FlexibleImage", "1.4"),
+    ...
+  ]
+)
 ```
 
 
