@@ -38,7 +38,6 @@ script:
 
 before_deploy:
   - pod lib lint
-  - carthage bootstrap --no-build
   - carthage build --no-skip-current
   - carthage archive $FRAMEWORK_NAME
 
