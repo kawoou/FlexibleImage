@@ -15,7 +15,7 @@ env:
     - DESTINATION="OS=2.0,name=Apple Watch - 42mm" TARGET="$WATCHOS_FRAMEWORK_TARGET" PLATFORM="watchOS"
     - DESTINATION="OS=8.1,name=iPhone 4S"          TARGET="$IOS_FRAMEWORK_TARGET"     PLATFORM="iOS"
     - DESTINATION="OS=9.0,name=Apple TV 1080p"     TARGET="$TVOS_FRAMEWORK_TARGET"    PLATFORM="tvOS"
-    - DESTINATION="arch=x86_64"                    TARGET="$MACOS_FRAMEWORK_TARGET"   PLATFORM="macOS"
+    - DESTINATION="arch=x86_64"                    TARGET="$MACOS_FRAMEWORK_TARGET"   PLATFORM="osx"
 
 before_install:
   - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
