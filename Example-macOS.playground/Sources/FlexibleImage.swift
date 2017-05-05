@@ -48,7 +48,10 @@
         }
     }
 #endif
+
+#if !os(watchOS)
 import Accelerate
+#endif
 
 public struct CornerType {
     public var topLeft: CGFloat
@@ -1040,7 +1043,11 @@ open class ImageChain {
         return self.algorithm { x, y, c -> ColorType in
             var color = c
             if color.a > 0 {
-                color.r = UInt16(CGFloat(color.r) * 0.299 + CGFloat(color.g) * 0.587 + CGFloat(color.b) * 0.114)
+                let fR = CGFloat(color.r)
+                let fG = CGFloat(color.g)
+                let fB = CGFloat(color.b)
+                
+                color.r = UInt16(fR * 0.299 + fG * 0.587 + fB * 0.114)
                 color.g = color.r
                 color.b = color.r
             }
@@ -1103,9 +1110,13 @@ open class ImageChain {
         return self.algorithm { x, y, c -> ColorType in
             var color = c
             if color.a > 0 {
-                color.r = UInt16(CGFloat(color.r) * 0.393 + CGFloat(color.g) * 0.769 + CGFloat(color.b) * 0.189)
-                color.g = UInt16(CGFloat(color.r) * 0.349 + CGFloat(color.g) * 0.686 + CGFloat(color.b) * 0.168)
-                color.b = UInt16(CGFloat(color.r) * 0.272 + CGFloat(color.g) * 0.534 + CGFloat(color.b) * 0.131)
+                let fR = CGFloat(color.r)
+                let fG = CGFloat(color.g)
+                let fB = CGFloat(color.b)
+                
+                color.r = UInt16(fR * 0.393 + fG * 0.769 + fB * 0.189)
+                color.g = UInt16(fR * 0.349 + fG * 0.686 + fB * 0.168)
+                color.b = UInt16(fR * 0.272 + fG * 0.534 + fB * 0.131)
             }
             
             return color
@@ -1168,6 +1179,8 @@ open class ImageChain {
             return color
         }
     }
+    
+    #if !os(watchOS)
     public func blur(_ blurRadius: CGFloat = 20.0) -> Self {
         #if !os(OSX)
             let scale = self.saveImage.scale
@@ -1216,6 +1229,7 @@ open class ImageChain {
         return self
         
     }
+    #endif
     
     /// Etc
     public func append(_ imageChain: ImageChain) -> Self {
