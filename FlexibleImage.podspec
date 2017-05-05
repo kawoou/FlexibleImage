@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'FlexibleImage'
-  s.version      = '1.3'
+  s.version      = '1.4'
   s.summary      = 'A simple way to play with image!'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.homepage     = 'https://github.com/Kawoou/FlexibleImage'
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.source       =  { :git => 'https://github.com/Kawoou/FlexibleImage.git',
                       :tag => s.version.to_s }
   s.requires_arc = true
-  s.source_files = 'Source/*.swift'
+  s.source_files = 'Sources/*.swift'
 
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'

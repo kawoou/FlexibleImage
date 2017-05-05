@@ -3,6 +3,8 @@ osx_image: xcode8
 
 env:
   global:
+  - FRAMEWORK_NAME=FlexibleImage
+
   - PROJECT="FlexibleImage.xcodeproj"
   - IOS_FRAMEWORK_TARGET="FlexibleImageIOS"
   - MACOS_FRAMEWORK_TARGET="FlexibleImageMacOS"
@@ -10,19 +12,20 @@ env:
   - WATCHOS_FRAMEWORK_TARGET="FlexibleImageWatchOS"
 
   matrix:
-    - DESTINATION="OS=2.0,name=Apple Watch - 42mm" TARGET="$WATCHOS_FRAMEWORK_TARGET" POD_LINT="NO"
+    - DESTINATION="OS=2.0,name=Apple Watch - 42mm" TARGET="$WATCHOS_FRAMEWORK_TARGET"
 
-    - DESTINATION="OS=10.3,name=iPhone 7 Plus"     TARGET="$IOS_FRAMEWORK_TARGET"     POD_LINT="NO"
-    - DESTINATION="OS=9.0,name=iPhone 6"           TARGET="$IOS_FRAMEWORK_TARGET"     POD_LINT="NO"
-    - DESTINATION="OS=8.1,name=iPhone 4S"          TARGET="$IOS_FRAMEWORK_TARGET"     POD_LINT="NO"
+    - DESTINATION="OS=10.3,name=iPhone 7 Plus"     TARGET="$IOS_FRAMEWORK_TARGET"
+    - DESTINATION="OS=9.0,name=iPhone 6"           TARGET="$IOS_FRAMEWORK_TARGET"
+    - DESTINATION="OS=8.1,name=iPhone 4S"          TARGET="$IOS_FRAMEWORK_TARGET"
 
-    - DESTINATION="OS=10.2,name=Apple TV 1080p"    TARGET="$TVOS_FRAMEWORK_TARGET"    POD_LINT="NO"
-    - DESTINATION="OS=9.0,name=Apple TV 1080p"     TARGET="$TVOS_FRAMEWORK_TARGET"    POD_LINT="NO"
+    - DESTINATION="OS=10.2,name=Apple TV 1080p"    TARGET="$TVOS_FRAMEWORK_TARGET"
+    - DESTINATION="OS=9.0,name=Apple TV 1080p"     TARGET="$TVOS_FRAMEWORK_TARGET"
 
-    - DESTINATION="arch=x86_64"                    TARGET="$MACOS_FRAMEWORK_TARGET"   POD_LINT="YES"
+    - DESTINATION="arch=x86_64"                    TARGET="$MACOS_FRAMEWORK_TARGET"
 
 before_install:
   - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
+  - bash update_carthage.sh 0.22
 
 script:
   - set -o pipefail
@@ -30,9 +33,19 @@ script:
   - xcodebuild -showsdks
   - xcodebuild -project "$PROJECT" -list
 
-  - xcodebuild -project "$PROJECT" -target "$TARGET" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build
-  - xcodebuild -project "$PROJECT" -target "$TARGET" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO build
+  - xcodebuild -project "$PROJECT" -target "$TARGET" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty
+  - xcodebuild -project "$PROJECT" -target "$TARGET" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty
 
-  - if [ $POD_LINT == "YES" ]; then
-      pod lib lint;
-    fi
+before_deploy:
+  - pod lib lint
+  - carthage build --no-skip-current
+  - carthage archive $FRAMEWORK_NAME
+
+deploy:
+  provider: releases
+  api_key: $GH_TOKEN
+  file: FlexibleImage.framework.zip
+  skip_cleanup: true
+  on:
+    repo: Kawoou/FlexibleImage
+    tags: true

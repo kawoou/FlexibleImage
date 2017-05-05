@@ -2,8 +2,8 @@ FlexibleImage
 =============
 
 ![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
-[![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.3)
-[![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.3)
+[![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.4)
+[![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage/1.4)
 [![Pod License](http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat)](https://github.com/kawoou/FlexibleImage/blob/master/LICENSE)
 
 A simple way to play with image!
@@ -17,7 +17,7 @@ Installation
 KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/cocoapods). Add the following to your Podfile:
 
 ```ruby
-pod 'FlexibleImage', '~> 1.3'
+pod 'FlexibleImage', '~> 1.4'
 ```
 
 
@@ -179,6 +179,7 @@ Changelog
 + 1.1 Add to clipping corner radius.
 + 1.2 Support tvOS, macOS.
 + 1.3 Support watchOS, Add effects monochrome, sepia, vibrance, solarize, posterize, Update resize methods.
++ 1.4 Optimize build time, Setup TravisCI, Support carthage and swift package manager, Add blur effect(only iOS, macOS, tvOS)
 
 
 Requirements
