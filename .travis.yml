@@ -12,16 +12,10 @@ env:
   - WATCHOS_FRAMEWORK_TARGET="FlexibleImageWatchOS"
 
   matrix:
-    - DESTINATION="OS=2.0,name=Apple Watch - 42mm" TARGET="$WATCHOS_FRAMEWORK_TARGET"
-
-    - DESTINATION="OS=10.3,name=iPhone 7 Plus"     TARGET="$IOS_FRAMEWORK_TARGET"
-    - DESTINATION="OS=9.0,name=iPhone 6"           TARGET="$IOS_FRAMEWORK_TARGET"
-    - DESTINATION="OS=8.1,name=iPhone 4S"          TARGET="$IOS_FRAMEWORK_TARGET"
-
-    - DESTINATION="OS=10.2,name=Apple TV 1080p"    TARGET="$TVOS_FRAMEWORK_TARGET"
-    - DESTINATION="OS=9.0,name=Apple TV 1080p"     TARGET="$TVOS_FRAMEWORK_TARGET"
-
-    - DESTINATION="arch=x86_64"                    TARGET="$MACOS_FRAMEWORK_TARGET"
+    - DESTINATION="OS=2.0,name=Apple Watch - 42mm" TARGET="$WATCHOS_FRAMEWORK_TARGET" PLATFORM="watchOS"
+    - DESTINATION="OS=8.1,name=iPhone 4S"          TARGET="$IOS_FRAMEWORK_TARGET"     PLATFORM="iOS"
+    - DESTINATION="OS=9.0,name=Apple TV 1080p"     TARGET="$TVOS_FRAMEWORK_TARGET"    PLATFORM="tvOS"
+    - DESTINATION="arch=x86_64"                    TARGET="$MACOS_FRAMEWORK_TARGET"   PLATFORM="osx"
 
 before_install:
   - gem install cocoapods --pre --no-rdoc --no-ri --no-document --quiet
@@ -37,15 +31,13 @@ script:
   - xcodebuild -project "$PROJECT" -target "$TARGET" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty
 
 before_deploy:
-  - pod lib lint
-  - carthage bootstrap --no-build
-  - carthage build --no-skip-current
-  - carthage archive $FRAMEWORK_NAME
+  - carthage build --platform $PLATFORM --no-skip-current
+  - carthage archive $TARGET
 
 deploy:
   provider: releases
   api_key: $GH_TOKEN
-  file: FlexibleImage.framework.zip
+  file: $TARGET.framework.zip
   skip_cleanup: true
   on:
     repo: Kawoou/FlexibleImage
