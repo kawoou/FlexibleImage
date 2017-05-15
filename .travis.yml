@@ -27,8 +27,8 @@ script:
   - xcodebuild -showsdks
   - xcodebuild -project "$PROJECT" -list
 
-  - xcodebuild -project "$PROJECT" -target "$TARGET" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO build | xcpretty
-  - xcodebuild -project "$PROJECT" -target "$TARGET" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO build | xcpretty
+  - xcodebuild -project "$PROJECT" -target "$TARGET" -destination "$DESTINATION" -configuration Debug ONLY_ACTIVE_ARCH=NO clean build | xcpretty
+  - xcodebuild -project "$PROJECT" -target "$TARGET" -destination "$DESTINATION" -configuration Release ONLY_ACTIVE_ARCH=NO clean build | xcpretty
 
 before_deploy:
   - carthage build --platform $PLATFORM --no-skip-current

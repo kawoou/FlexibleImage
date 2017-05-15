@@ -2,15 +2,24 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/kawoou/GitHub/FlexibleImage/Example-iOS.playground">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/kawoou/GitHub/FlexibleImage/Example-tvOS.playground">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/kawoou/GitHub/FlexibleImage/Example-macOS.playground">
-   </FileRef>
-   <FileRef
       location = "group:FlexibleImage.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Example-app-macOS/Example-app-macOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Example-app-iOS/Example-app-iOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Example-app-tvOS/Example-app-tvOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/kawoou/GitHub/FlexibleImage/Example-playground-iOS.playground">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/kawoou/GitHub/FlexibleImage/Example-playground-tvOS.playground">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/kawoou/GitHub/FlexibleImage/Example-playground-macOS.playground">
    </FileRef>
 </Workspace>
