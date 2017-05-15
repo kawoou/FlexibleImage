@@ -31,10 +31,15 @@ internal class ImageFilter {
     #if !os(watchOS)
         @available(OSX 10.11, iOS 8, tvOS 9, *)
         private func loadMetalPipeline(device: MTLDevice) -> MTLComputePipelineState? {
-            let filePath = Bundle(identifier: "io.kawoou.FlexibleImage")?.path(forResource: "default", ofType: "metallib")
-            
+            guard let filePath = Bundle(identifier: "io.kawoou.FlexibleImage")?
+                .path(forResource: "default", ofType: "metallib") else { return nil }
             guard self.metalName.lengthOfBytes(using: .ascii) > 0 else { return nil }
-             let library = try! device.makeLibrary(filepath: filePath!) //else { return nil }
+            
+            do {
+                let library = try device.makeLibrary(filepath: filePath)
+            } catch let error {
+                return nil
+            }
             guard let function = library.makeFunction(name: self.metalName) else { return nil }
             
             do {
