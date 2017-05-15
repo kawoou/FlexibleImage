@@ -35,14 +35,11 @@ internal class ImageFilter {
                 .path(forResource: "default", ofType: "metallib") else { return nil }
             guard self.metalName.lengthOfBytes(using: .ascii) > 0 else { return nil }
             
-            do {
-                let library = try device.makeLibrary(filepath: filePath)
-            } catch let error {
-                return nil
-            }
-            guard let function = library.makeFunction(name: self.metalName) else { return nil }
             
             do {
+                let library = try device.makeLibrary(filepath: filePath)
+                guard let function = library.makeFunction(name: self.metalName) else { return nil }
+                
                 return try device.makeComputePipelineState(function: function)
             } catch let error {
                 print(error)
