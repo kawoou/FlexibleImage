@@ -27,7 +27,7 @@
 
 FlexibleImage is implemented with the hope that anyone could easily develop an app that provides features such as Camera Filter and Theme. When you write code in the "Method Chaining" style, the effect is applied in the appropriate order.
 
-You may want to see [Examples](https://github.com/Kawoou/FlexibleImage#example) section first if you'd like to see the actual code.
+You may want to see [Examples](https://github.com/Kawoou/FlexibleImage#-example) section first if you'd like to see the actual code.
 
 <br>
 
