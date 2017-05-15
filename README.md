@@ -1,14 +1,28 @@
 <img alt="FlexibleImage" src="https://github.com/Kawoou/FlexibleImage/raw/master/Preview/Cover.png" style="max-width: 100%">
 
 <center>
-![Swift](https://img.shields.io/badge/Swift-3.0-orange.svg)
-[![Metal](https://img.shields.io/badge/Apple-Metal-ff00ff.svg)](https://developer.apple.com/metal/)
-[![Pod Platform](http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage)
-[![Pod License](http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat)](https://github.com/kawoou/FlexibleImage/blob/master/LICENSE)
-<br/>
-[![Pod Version](http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat)](http://cocoadocs.org/docsets/FlexibleImage)
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![Build Status](https://travis-ci.org/Kawoou/FlexibleImage.svg?branch=master)](https://travis-ci.org/Kawoou/FlexibleImage)
+<p align="center">
+  <img alt="Swift" src="https://img.shields.io/badge/Swift-3.0-orange.svg">
+  <a href="https://developer.apple.com/metal/" target="_blank">
+    <img alt="Metal" src="https://img.shields.io/badge/Apple-Metal-ff00ff.svg">
+  </a>
+  <a href="http://cocoadocs.org/docsets/FlexibleImage" target="_blank">
+    <img alt="Platform" src="http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat">
+  </a>
+  <a href="https://github.com/kawoou/FlexibleImage/blob/master/LICENSE" target="_blank">
+    <img alt="License" src="http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat">
+  </a>
+  <br>
+  <a href="https://travis-ci.org/Kawoou/FlexibleImage" target="_blank">
+    <img alt="Build Status" src="https://travis-ci.org/Kawoou/FlexibleImage.svg?branch=master">
+  </a>
+  <a href="http://cocoadocs.org/docsets/FlexibleImage" target="_blank">
+    <img alt="Version" src="http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat">
+  </a>
+  <a href="https://github.com/Carthage/Carthage" target="_blank">
+    <img alt="Carthage compatible" src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat">
+  </a>
+</p>
 </center>
 
 A simple way to play with image!
