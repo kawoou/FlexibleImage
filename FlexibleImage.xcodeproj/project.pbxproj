@@ -107,13 +107,6 @@
 		9D8538001EC7A27700A9715A /* ExclusionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8537491EC7A27700A9715A /* ExclusionFilter.swift */; };
 		9D8538011EC7A27700A9715A /* ExclusionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8537491EC7A27700A9715A /* ExclusionFilter.swift */; };
 		9D8538021EC7A27700A9715A /* ExclusionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8537491EC7A27700A9715A /* ExclusionFilter.swift */; };
-		9D8538031EC7A27700A9715A /* FilterMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D85374A1EC7A27700A9715A /* FilterMath.h */; };
-		9D8538041EC7A27700A9715A /* FilterMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D85374A1EC7A27700A9715A /* FilterMath.h */; };
-		9D8538051EC7A27700A9715A /* FilterMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D85374A1EC7A27700A9715A /* FilterMath.h */; };
-		9D8538061EC7A27700A9715A /* FilterMath.h in Headers */ = {isa = PBXBuildFile; fileRef = 9D85374A1EC7A27700A9715A /* FilterMath.h */; };
-		9D8538071EC7A27700A9715A /* FilterMath.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9D85374B1EC7A27700A9715A /* FilterMath.metal */; };
-		9D8538081EC7A27700A9715A /* FilterMath.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9D85374B1EC7A27700A9715A /* FilterMath.metal */; };
-		9D8538091EC7A27700A9715A /* FilterMath.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9D85374B1EC7A27700A9715A /* FilterMath.metal */; };
 		9D85380B1EC7A27700A9715A /* GammaFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9D85374C1EC7A27700A9715A /* GammaFilter.metal */; };
 		9D85380C1EC7A27700A9715A /* GammaFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9D85374C1EC7A27700A9715A /* GammaFilter.metal */; };
 		9D85380D1EC7A27700A9715A /* GammaFilter.metal in Sources */ = {isa = PBXBuildFile; fileRef = 9D85374C1EC7A27700A9715A /* GammaFilter.metal */; };
@@ -401,8 +394,6 @@
 		9D8537471EC7A27700A9715A /* DifferenceFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = DifferenceFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9D8537481EC7A27700A9715A /* ExclusionFilter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ExclusionFilter.metal; sourceTree = "<group>"; };
 		9D8537491EC7A27700A9715A /* ExclusionFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = ExclusionFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
-		9D85374A1EC7A27700A9715A /* FilterMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FilterMath.h; sourceTree = "<group>"; };
-		9D85374B1EC7A27700A9715A /* FilterMath.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = FilterMath.metal; sourceTree = "<group>"; };
 		9D85374C1EC7A27700A9715A /* GammaFilter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = GammaFilter.metal; sourceTree = "<group>"; };
 		9D85374D1EC7A27700A9715A /* GammaFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = GammaFilter.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		9D85374E1EC7A27700A9715A /* GlowFilter.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = GlowFilter.metal; sourceTree = "<group>"; };
@@ -579,8 +570,6 @@
 				9D8537471EC7A27700A9715A /* DifferenceFilter.swift */,
 				9D8537481EC7A27700A9715A /* ExclusionFilter.metal */,
 				9D8537491EC7A27700A9715A /* ExclusionFilter.swift */,
-				9D85374A1EC7A27700A9715A /* FilterMath.h */,
-				9D85374B1EC7A27700A9715A /* FilterMath.metal */,
 				9D85374C1EC7A27700A9715A /* GammaFilter.metal */,
 				9D85374D1EC7A27700A9715A /* GammaFilter.swift */,
 				9D85374E1EC7A27700A9715A /* GlowFilter.metal */,
@@ -740,7 +729,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8538031EC7A27700A9715A /* FilterMath.h in Headers */,
 				9DF90EA11EBA5594002B0CBD /* FlexibleImageIOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -749,7 +737,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8538041EC7A27700A9715A /* FilterMath.h in Headers */,
 				9DF90E891EBA50EB002B0CBD /* FlexibleImageTvOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -758,7 +745,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8538051EC7A27700A9715A /* FilterMath.h in Headers */,
 				9DF90E971EBA512B002B0CBD /* FlexibleImageMacOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -767,7 +753,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D8538061EC7A27700A9715A /* FilterMath.h in Headers */,
 				9DF90EAB1EBB52A6002B0CBD /* FlexibleImageWatchOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -995,7 +980,6 @@
 				9D8538231EC7A27700A9715A /* HardLightFilter.metal in Sources */,
 				9D85383B1EC7A27700A9715A /* InvertFilter.metal in Sources */,
 				9D8537BB1EC7A27700A9715A /* BrightnessFilter.metal in Sources */,
-				9D8538071EC7A27700A9715A /* FilterMath.metal in Sources */,
 				9D8538571EC7A27700A9715A /* LinearLightFilter.metal in Sources */,
 				9D8538271EC7A27700A9715A /* HardLightFilter.swift in Sources */,
 				9D85386B1EC7A27700A9715A /* MonochromeFilter.swift in Sources */,
@@ -1101,7 +1085,6 @@
 				9D8538241EC7A27700A9715A /* HardLightFilter.metal in Sources */,
 				9D85383C1EC7A27700A9715A /* InvertFilter.metal in Sources */,
 				9D8537BC1EC7A27700A9715A /* BrightnessFilter.metal in Sources */,
-				9D8538081EC7A27700A9715A /* FilterMath.metal in Sources */,
 				9D8538581EC7A27700A9715A /* LinearLightFilter.metal in Sources */,
 				9D8538281EC7A27700A9715A /* HardLightFilter.swift in Sources */,
 				9D85386C1EC7A27700A9715A /* MonochromeFilter.swift in Sources */,
@@ -1207,7 +1190,6 @@
 				9D8538251EC7A27700A9715A /* HardLightFilter.metal in Sources */,
 				9D85383D1EC7A27700A9715A /* InvertFilter.metal in Sources */,
 				9D8537BD1EC7A27700A9715A /* BrightnessFilter.metal in Sources */,
-				9D8538091EC7A27700A9715A /* FilterMath.metal in Sources */,
 				9D8538591EC7A27700A9715A /* LinearLightFilter.metal in Sources */,
 				9D8538291EC7A27700A9715A /* HardLightFilter.swift in Sources */,
 				9D85386D1EC7A27700A9715A /* MonochromeFilter.swift in Sources */,
