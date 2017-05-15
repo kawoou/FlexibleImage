@@ -65,7 +65,9 @@ internal class MonochromeFilter: ImageFilter {
             } else {
                 let l = 255 - l
                 let d = 1.0 - d
-                ret = UInt8(255 - UInt16(2.0 * l * d))
+                
+                let first = Int32(255.0 - 2.0 * l * d)
+                ret = UInt8(max(min(first, 255), 0))
             }
             
             return UInt8(a * (1.0 - self.threshold) + Float(ret) * self.threshold)

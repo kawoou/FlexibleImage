@@ -42,9 +42,13 @@ internal class SepiaFilter: ImageFilter {
                 let g = Float(memoryPool[index + 1])
                 let b = Float(memoryPool[index + 2])
                 
-                memoryPool[index + 0] = UInt8(min(r * 0.393 + g * 0.769 + b * 0.189, 255))
-                memoryPool[index + 1] = UInt8(min(r * 0.349 + g * 0.686 + b * 0.168, 255))
-                memoryPool[index + 2] = UInt8(min(r * 0.272 + g * 0.534 + b * 0.131, 255))
+                let ra = r * 0.393 + g * 0.769 + b * 0.189
+                let ga = r * 0.349 + g * 0.686 + b * 0.168
+                let ba = r * 0.272 + g * 0.534 + b * 0.131
+                
+                memoryPool[index + 0] = UInt8(min(ra, 255))
+                memoryPool[index + 1] = UInt8(min(ga, 255))
+                memoryPool[index + 2] = UInt8(min(ba, 255))
                 
                 index += 4
             }

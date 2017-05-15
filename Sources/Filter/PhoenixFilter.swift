@@ -61,7 +61,7 @@ internal class PhoenixFilter: ImageFilter {
         func phoenix(_ a: UInt16, _ b: UInt16) -> UInt8 {
             let first = min(a, b)
             let second = max(a, b)
-            return UInt8(first + 255 - second)
+            return UInt8(first + UInt16(255) - second)
         }
         
         var index = 0
