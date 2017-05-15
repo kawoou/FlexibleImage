@@ -10,7 +10,12 @@ Pod::Spec.new do |s|
   s.source       =  { :git => 'https://github.com/Kawoou/FlexibleImage.git',
                       :tag => s.version.to_s }
   s.requires_arc = true
-  s.source_files = 'Sources/*.swift'
+  s.source_files = 'Sources/*.swift',
+		   'Sources/Abstract/*.swift',
+		   'Sources/Device/*.swift',
+		   'Sources/Filter/*.swift',
+		   'Sources/Filter/*.metal',
+		   'Sources/Type/*.swift'
 
   s.ios.deployment_target = '8.0'
   s.tvos.deployment_target = '9.0'
