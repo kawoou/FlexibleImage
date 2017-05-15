@@ -25,12 +25,13 @@
 </p>
 </center>
 
-A simple way to play with image!
+FlexibleImage is implemented with the hope that anyone could easily develop an app that provides features such as Camera Filter and Theme. When you write code in the "Method Chaining" style, the effect is applied in the appropriate order.
 
-This project can apply effects to images by chaining.
+You may want to see [Examples](https://github.com/Kawoou/FlexibleImage#example) section first if you'd like to see the actual code.
 
+<br>
 
-Usage
+💡 Usage
 -----
 
 ### Code
@@ -47,35 +48,33 @@ let image1 = UIImage
     .circle(
         color: UIColor.blue,
         size: CGSize(width: 100, height: 100)
-    )?
+    )!
+    
     .adjust()
     .offset(CGPoint(x: 25, y: 0))
     .margin(UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
     .padding(UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15))
     .normal(color: UIColor.white)
     .border(color: UIColor.red, lineWidth: 5, radius: 50)
-    .image()?
+    .image()!
+    
     .adjust()
     .background(color: UIColor.darkGray)
     .image()
 
 
 /// Effect Example
-let image2 = UIImage(named: "macaron.jpg")
-
-let image3 = image2?.adjust()
+let image2 = UIImage(named: "macaron.jpg")!
+    .adjust()
     .outputSize(CGSize(width: 250, height: 250))
     .exclusion(color: UIColor(red: 0, green: 0, blue: 0.352941176, alpha: 1.0))
     .linearDodge(color: UIColor(red: 0.125490196, green: 0.058823529, blue: 0.192156863, alpha: 1.0))
-    .image()
-
-let image4 = image3?.adjust()
     .hardMix(color: UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0))
     .image()
 
 
 /// Mix Example
-let image5 = image4?.adjust()
+let image3 = image2!.adjust()
     .append(
         image1!.adjust()
             .outputSize(CGSize(width: 250, height: 250))
@@ -84,7 +83,7 @@ let image5 = image4?.adjust()
     .image()
 
 /// Clipping Example
-let image6 = image5?.adjust()
+let image4 = image3!.adjust()
     .corner(CornerType(25))
     .image()
 ```
@@ -94,8 +93,9 @@ let image6 = image5?.adjust()
 
 Use CocoaPods command `$ pod try FlexibleImage` to try Playground!
 
+<br>
 
-Installation
+🏗 Installation
 ------------
 
 ### [CocoaPods](https://cocoapods.org) (For iOS 8+ projects)
@@ -118,12 +118,10 @@ github "kawoou/FlexibleImage" ~> 1.5
 
 You can either simply drag and drop the `Sources` folder into your existing project.
 
+<br>
 
-Supported Features
+📕 Supported Features
 ------------------
-
-FlexibleImage
-----------
 
 ### Common
 
@@ -215,8 +213,21 @@ FlexibleImage
 | circle() | Create a circle image. |
 | append() | Combine images to create a single image. |
 
+<br>
 
-Changelog
+🎁 Example
+-------
+
+- [iOS APP Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-app-iOS)
+- [iOS Playground Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-playground-iOS.playground)
+- [macOS App Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-app-macOS)
+- [macOS Playground Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-playground-macOS.playground)
+- [tvOS App Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-app-tvOS)
+- [tvOS Playground Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-playground-tvOS.playground)
+
+<br>
+
+🏷 Changelog
 ---------
 
 + 1.0
@@ -238,9 +249,10 @@ Changelog
   - Support Metal depending on the situation.
   - Added brightness, chromaKey, swizzling, contrast, gamma filters.
 
+<br>
 
-Requirements
---------------
+💻 Requirements
+------------
 
 - iOS 8.0+
 - tvOS 9.0+
@@ -248,9 +260,10 @@ Requirements
 - watchOS 2.0+
 - Swift 3.0+
 
+<br>
 
-License
-----------
+🔑 License
+-------
 
 FlexibleImage is under MIT license. See the LICENSE file for more info.
 
