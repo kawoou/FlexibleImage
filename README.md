@@ -3,25 +3,13 @@
 <center>
 <p align="center">
   <img alt="Swift" src="https://img.shields.io/badge/Swift-3.0-orange.svg">
-  <a href="https://developer.apple.com/metal/" target="_blank">
-    <img alt="Metal" src="https://img.shields.io/badge/Apple-Metal-ff00ff.svg">
-  </a>
-  <a href="http://cocoadocs.org/docsets/FlexibleImage" target="_blank">
-    <img alt="Platform" src="http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat">
-  </a>
-  <a href="https://github.com/kawoou/FlexibleImage/blob/master/LICENSE" target="_blank">
-    <img alt="License" src="http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat">
-  </a>
+  <a href="https://developer.apple.com/metal/" target="_blank"><img alt="Metal" src="https://img.shields.io/badge/Apple-Metal-ff00ff.svg"></a>
+  <a href="http://cocoadocs.org/docsets/FlexibleImage" target="_blank"><img alt="Platform" src="http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat"></a>
+  <a href="https://github.com/kawoou/FlexibleImage/blob/master/LICENSE" target="_blank"><img alt="License" src="http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat"></a>
   <br>
-  <a href="https://travis-ci.org/Kawoou/FlexibleImage" target="_blank">
-    <img alt="Build Status" src="https://travis-ci.org/Kawoou/FlexibleImage.svg?branch=master">
-  </a>
-  <a href="http://cocoadocs.org/docsets/FlexibleImage" target="_blank">
-    <img alt="Version" src="http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat">
-  </a>
-  <a href="https://github.com/Carthage/Carthage" target="_blank">
-    <img alt="Carthage compatible" src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat">
-  </a>
+  <a href="https://travis-ci.org/Kawoou/FlexibleImage" target="_blank"><img alt="Build Status" src="https://travis-ci.org/Kawoou/FlexibleImage.svg?branch=master"></a>
+  <a href="http://cocoadocs.org/docsets/FlexibleImage" target="_blank"><img alt="Version" src="http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat"></a>
+  <a href="https://github.com/Carthage/Carthage" target="_blank"><img alt="Carthage compatible" src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
 </p>
 </center>
 
@@ -103,14 +91,14 @@ Use CocoaPods command `$ pod try FlexibleImage` to try Playground!
 KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/cocoapods). Add the following to your Podfile:
 
 ```ruby
-pod 'FlexibleImage', '~> 1.5'
+pod 'FlexibleImage', '~> 1.6'
 ```
 
 
 ### [Carthage](https://github.com/Carthage/Carthage) (For iOS 8+ projects)
 
 ```
-github "kawoou/FlexibleImage" ~> 1.5
+github "kawoou/FlexibleImage" ~> 1.6
 ```
 
 
@@ -248,6 +236,8 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 + 1.5
   - Support Metal depending on the situation.
   - Added brightness, chromaKey, swizzling, contrast, gamma filters.
++ 1.6 (Hotfix!)
+  - Fix issue Metal library path on Cocoapods.
 
 <br>
 
