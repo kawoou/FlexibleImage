@@ -34,7 +34,7 @@
         
         internal func makeTexture() {
             guard self.texture == nil else { return }
-            guard let imageRef = self.image?.cgImage else { return }
+            guard let imageRef = self.cgImage else { return }
             defer { self.image = nil }
             
             /// Space Size
@@ -256,7 +256,7 @@
         
         // MARK: - Lifecycle
         
-        internal override init(image: FIImage) {
+        internal override init() {
             #if os(OSX)
                 let devices = MTLCopyAllDevices()
                 for device in devices {
@@ -272,7 +272,7 @@
             // Make command queue
             self.commandQueue = self.device.makeCommandQueue()
             
-            super.init(image: image)
+            super.init()
             
             self.type = .Metal
             

@@ -26,8 +26,24 @@ internal class ImageDevice {
     // MARK: - Property
     
     internal var type: ImageDeviceType
-    internal var image: FIImage?
-    internal var imageScale: CGFloat
+    internal var image: FIImage? {
+        didSet {
+            if let image = self.image {
+                self.cgImage = image.cgImage
+                self.imageScale = image.scale
+                self.spaceSize = CGSize(
+                    width: image.size.width,
+                    height: image.size.height
+                )
+            } else {
+                self.cgImage = nil
+                self.imageScale = 1.0
+                self.spaceSize = .zero
+            }
+        }
+    }
+    internal var cgImage: CGImage?
+    internal var imageScale: CGFloat = 1.0
     
     internal var background: FIColor?
     internal var offset: CGPoint = .zero
@@ -46,22 +62,15 @@ internal class ImageDevice {
     
     
     // MARK: - Public
-    
+
     internal func beginGenerate(_ isAlphaProcess: Bool) { return }
     internal func endGenerate() -> CGImage? { return nil }
     
     
     // MARK: - Lifecycle
     
-    internal init(image: FIImage) {
+    internal init() {
         self.type = .None
-        
-        self.image = image
-        self.imageScale = image.scale
-        self.spaceSize = CGSize(
-            width: image.size.width,
-            height: image.size.height
-        )
     }
     
 }

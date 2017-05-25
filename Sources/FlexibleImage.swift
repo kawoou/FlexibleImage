@@ -20,13 +20,79 @@
     import Metal
 #endif
 
+open class ImagePipeline: ImageChain {
+
+    // MARK: - Public
+
+    public func image(_ image: FIImage) -> FIImage? {
+        /// Set Image
+        self.device.image = image
+
+        /// Output
+        return super.image()
+    }
+
+    public func image(_ image: CGImage) -> CGImage? {
+        let scale = self.device.imageScale
+        
+        /// Set Image
+        self.device.cgImage = image
+        self.device.imageScale = 1.0
+        self.device.spaceSize = CGSize(
+            width: image.width,
+            height: image.height
+        )
+
+        self.device.beginGenerate(self.isAlphaProcess)
+        self.filterList.forEach { filter in
+            _ = filter.process(device: self.device)
+        }
+        return self.device.endGenerate()
+    }
+
+    public func image(_ buffer: CMSampleBuffer) -> CGImage? {
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(buffer) else { return nil }
+
+        CVPixelBufferLockBaseAddress(imageBuffer, CVPixelBufferLockFlags(rawValue: 0))
+        defer { CVPixelBufferUnlockBaseAddress(imageBuffer, CVPixelBufferLockFlags(rawValue: 0)) }
+
+        let baseAddress = CVPixelBufferGetBaseAddress(imageBuffer)
+        let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer)
+        let width = CVPixelBufferGetWidth(imageBuffer)
+        let height = CVPixelBufferGetHeight(imageBuffer)
+        let colorSpace = CGColorSpaceCreateDeviceRGB()
+
+        let context = CGContext(
+            data: baseAddress,
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bytesPerRow: bytesPerRow,
+            space: colorSpace,
+            bitmapInfo: (CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue)
+        )
+        guard let drawContext = context else { return nil }
+        guard let cgImage = context.makeImage() else { return nil }
+
+        return self.image(cgImage)
+    }
+
+
+    // MARK: - Lifecycle
+
+    public init(isOnlyCoreGraphic: Bool = false) {
+        super.init(image: nil, isOnlyCoreGraphic: isOnlyCoreGraphic)
+    }
+
+}
+
 open class ImageChain {
     
     // MARK: - Internal
     
     private var device: ImageDevice
     
-    private var saveSize: CGSize
+    private var saveSize: CGSize?
 
     private var isAlphaProcess: Bool = false
     
@@ -56,7 +122,9 @@ open class ImageChain {
     public func rotate(_ radius: CGFloat, _ fixedSize: CGSize? = nil) -> Self {
         self.device.rotate = (self.device.rotate ?? 0) + radius
         
-        let size = self.device.scale ?? self.saveSize
+        guard let saveSize = self.saveSize else { return self }
+
+        let size = self.device.scale ?? saveSize
         let sinValue = CGFloat(sinf(Float(self.device.rotate!)))
         let cosValue = CGFloat(cosf(Float(self.device.rotate!)))
         
@@ -627,25 +695,28 @@ open class ImageChain {
     
     // MARK: - Lifecycle
     
-    fileprivate init(image: FIImage, isOnlyCoreGraphic: Bool = false) {
+    fileprivate init(image: FIImage?, isOnlyCoreGraphic: Bool = false) {
         if isOnlyCoreGraphic {
-            self.device = ImageNoneDevice(image: image)
+            self.device = ImageNoneDevice()
         } else {
             #if !os(watchOS)
                 if #available(OSX 10.11, *) {
                     if let _ = MTLCreateSystemDefaultDevice() {
-                        self.device = ImageMetalDevice(image: image)
+                        self.device = ImageMetalDevice()
                     } else {
-                        self.device = ImageNoneDevice(image: image)
+                        self.device = ImageNoneDevice()
                     }
                 } else {
-                    self.device = ImageNoneDevice(image: image)
+                    self.device = ImageNoneDevice()
                 }
             #else
-                self.device = ImageNoneDevice(image: image)
+                self.device = ImageNoneDevice()
             #endif
         }
-        
+
+        guard let image = image else { return }
+
+        self.device.image = image
         self.saveSize = CGSize(
             width: image.size.width,
             height: image.size.height
@@ -784,7 +855,7 @@ extension FIImage {
     
     // MARK: - Private
     
-    private class func screenScale() -> CGFloat {
+    private class func screenScale() -> CGFloat {1
         // over iOS 8
         #if os(iOS)
             if #available(iOS 8, *) {
