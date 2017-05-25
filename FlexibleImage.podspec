@@ -8,7 +8,7 @@ Pod::Spec.new do |s|
   s.authors      = { 'Jungwon An' => 'kawoou@kawoou.kr' }
   s.social_media_url   = 'http://fb.com/kawoou'
   s.source       =  { :git => 'https://github.com/Kawoou/FlexibleImage.git',
-                      :tag => s.version.to_s }
+                      :tag => 'v' + s.version.to_s }
   s.requires_arc = true
   s.source_files = 'Sources/**/*.{swift,metal}'
 
