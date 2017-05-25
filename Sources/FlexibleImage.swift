@@ -18,19 +18,88 @@
 
 #if !os(watchOS)
     import Metal
+    import CoreMedia
 #endif
+
+open class ImagePipeline: ImageChain {
+
+    // MARK: - Public
+
+    public func image(_ image: FIImage) -> FIImage? {
+        /// Set Image
+        self.device.image = image
+
+        /// Output
+        return super.image()
+    }
+
+    public func image(_ image: CGImage) -> CGImage? {
+        /// Set Image
+        self.device.cgImage = image
+        self.device.imageScale = 1.0
+        self.device.spaceSize = CGSize(
+            width: image.width,
+            height: image.height
+        )
+
+        self.device.beginGenerate(self.isAlphaProcess)
+        self.filterList.forEach { filter in
+            _ = filter.process(device: self.device)
+        }
+        return self.device.endGenerate()
+    }
+    
+    #if !os(watchOS)
+        public func image(_ buffer: CVImageBuffer) -> CGImage? {
+            let width = CVPixelBufferGetWidth(buffer)
+            let height = CVPixelBufferGetHeight(buffer)
+            
+            let ciImage: CIImage
+            if #available(iOS 9.0, *) {
+                ciImage = CIImage(cvImageBuffer: buffer)
+            } else {
+                ciImage = CIImage(cvPixelBuffer: buffer)
+            }
+            let ciContext: CIContext
+            #if !os(watchOS)
+                if #available(OSX 10.11, iOS 9, tvOS 9, *) {
+                    if let device = self.device as? ImageMetalDevice {
+                        ciContext = CIContext(mtlDevice: device.device)
+                    } else {
+                        ciContext = CIContext()
+                    }
+                } else {
+                    ciContext = CIContext()
+                }
+            #endif
+            
+            let cgMakeImage = ciContext.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: width, height: height))
+            guard let cgImage = cgMakeImage else { return nil }
+            
+            return self.image(cgImage)
+        }
+    #endif
+    
+    
+    // MARK: - Lifecycle
+
+    public init(isOnlyCoreGraphic: Bool = false) {
+        super.init(image: nil, isOnlyCoreGraphic: isOnlyCoreGraphic)
+    }
+
+}
 
 open class ImageChain {
     
     // MARK: - Internal
     
-    private var device: ImageDevice
+    fileprivate var device: ImageDevice
     
-    private var saveSize: CGSize
-
-    private var isAlphaProcess: Bool = false
+    fileprivate var saveSize: CGSize?
     
-    private var filterList: [ImageFilter] = []
+    fileprivate var isAlphaProcess: Bool = false
+    
+    fileprivate var filterList: [ImageFilter] = []
     
     
     // MARK: - Public
@@ -56,7 +125,9 @@ open class ImageChain {
     public func rotate(_ radius: CGFloat, _ fixedSize: CGSize? = nil) -> Self {
         self.device.rotate = (self.device.rotate ?? 0) + radius
         
-        let size = self.device.scale ?? self.saveSize
+        guard let saveSize = self.saveSize else { return self }
+
+        let size = self.device.scale ?? saveSize
         let sinValue = CGFloat(sinf(Float(self.device.rotate!)))
         let cosValue = CGFloat(cosf(Float(self.device.rotate!)))
         
@@ -627,25 +698,28 @@ open class ImageChain {
     
     // MARK: - Lifecycle
     
-    fileprivate init(image: FIImage, isOnlyCoreGraphic: Bool = false) {
+    fileprivate init(image: FIImage?, isOnlyCoreGraphic: Bool = false) {
         if isOnlyCoreGraphic {
-            self.device = ImageNoneDevice(image: image)
+            self.device = ImageNoneDevice()
         } else {
             #if !os(watchOS)
                 if #available(OSX 10.11, *) {
                     if let _ = MTLCreateSystemDefaultDevice() {
-                        self.device = ImageMetalDevice(image: image)
+                        self.device = ImageMetalDevice()
                     } else {
-                        self.device = ImageNoneDevice(image: image)
+                        self.device = ImageNoneDevice()
                     }
                 } else {
-                    self.device = ImageNoneDevice(image: image)
+                    self.device = ImageNoneDevice()
                 }
             #else
-                self.device = ImageNoneDevice(image: image)
+                self.device = ImageNoneDevice()
             #endif
         }
-        
+
+        guard let image = image else { return }
+
+        self.device.image = image
         self.saveSize = CGSize(
             width: image.size.width,
             height: image.size.height

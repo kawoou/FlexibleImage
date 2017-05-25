@@ -33,16 +33,16 @@
         // MARK: - Internal
         
         internal func makeTexture() {
+            /// Calc size
+            let width = Int(self.drawRect!.width)
+            let height = Int(self.drawRect!.height)
+            
             guard self.texture == nil else { return }
-            guard let imageRef = self.image?.cgImage else { return }
+            guard let imageRef = self.cgImage else { return }
             defer { self.image = nil }
             
             /// Space Size
             let scale = self.imageScale
-            
-            /// Calc size
-            let width = Int(self.drawRect!.width)
-            let height = Int(self.drawRect!.height)
             
             /// Alloc Memory
             let memorySize = width * height * 4
@@ -90,24 +90,26 @@
                 )
                 context.rotate(by: rotateRadius)
                 
-                context.draw(
+                self.draw(
                     imageRef,
                     in: CGRect(
                         x: (-size.width * 0.5 + tempX) * scale,
                         y: (-size.height * 0.5 + tempY) * scale,
                         width: size.width * scale,
                         height: size.height * scale
-                    )
+                    ),
+                    on: context
                 )
             } else {
-                context.draw(
+                self.draw(
                     imageRef,
                     in: CGRect(
                         x: tempX * scale,
                         y: tempY * scale,
                         width: size.width * scale,
                         height: size.height * scale
-                    )
+                    ),
+                    on: context
                 )
             }
             context.restoreGState()
@@ -158,6 +160,11 @@
         }
         internal override func endGenerate() -> CGImage? {
             guard let texture = self.texture else { return nil }
+            defer {
+                self.texture = nil
+                self.outputTexture = nil
+            }
+            
             let scale = self.imageScale
             
             let width = Int(self.drawRect!.width)
@@ -256,7 +263,7 @@
         
         // MARK: - Lifecycle
         
-        internal override init(image: FIImage) {
+        internal override init() {
             #if os(OSX)
                 let devices = MTLCopyAllDevices()
                 for device in devices {
@@ -272,7 +279,7 @@
             // Make command queue
             self.commandQueue = self.device.makeCommandQueue()
             
-            super.init(image: image)
+            super.init()
             
             self.type = .Metal
             
