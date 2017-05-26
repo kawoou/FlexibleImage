@@ -141,7 +141,7 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 
 ### Filter
 
-| type | Parameter | Comments |
+| Type | Parameter | Comments |
 | ---- | --------- | -------- |
 | greyscale() | threshold: Float [Optional] | |
 | monochrome() | threshold: Float [Optional] | |
@@ -160,7 +160,7 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 
 ### Blend
 
-| type | Parameter |
+| Type | Parameter |
 | ---- | --------- |
 | normal() | Color |
 | multiply() | Color |
@@ -195,7 +195,7 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 
 ### Post-processing
 
-| type | Parameter | Comments |
+| Type | Parameter | Comments |
 | ---- | --------- | -------- |
 | algorithm() | AlgorithmType | Create an image by writing a formula directly on a pixel-by-pixel basis. |
 | custom() | ContextType | Add processing directly using Core Graphics. |
@@ -203,7 +203,7 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 
 ### Generate
 
-| type | Comments |
+| Type | Comments |
 | ---- | -------- |
 | rect() | Create a rectangular image. |
 | circle() | Create a circle image. |
@@ -212,7 +212,7 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 
 ### Pipeline (`ImagePipeline` class)
 
-| type | Parameter | Return | Comments |
+| Type | Parameter | Return | Comments |
 | ---- | --------- | ------ | -------- |
 | image() | FIImage | FIImage? | Create the Output image. |
 | image() | CGImage | CGImage? | Create the Output image. |
