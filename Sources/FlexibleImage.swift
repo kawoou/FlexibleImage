@@ -18,6 +18,7 @@
 
 #if !os(watchOS)
     import Metal
+    import CoreMedia
 #endif
 
 open class ImagePipeline: ImageChain {
@@ -33,8 +34,6 @@ open class ImagePipeline: ImageChain {
     }
 
     public func image(_ image: CGImage) -> CGImage? {
-        let scale = self.device.imageScale
-        
         /// Set Image
         self.device.cgImage = image
         self.device.imageScale = 1.0
@@ -49,35 +48,39 @@ open class ImagePipeline: ImageChain {
         }
         return self.device.endGenerate()
     }
-
-    public func image(_ buffer: CMSampleBuffer) -> CGImage? {
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(buffer) else { return nil }
-
-        CVPixelBufferLockBaseAddress(imageBuffer, CVPixelBufferLockFlags(rawValue: 0))
-        defer { CVPixelBufferUnlockBaseAddress(imageBuffer, CVPixelBufferLockFlags(rawValue: 0)) }
-
-        let baseAddress = CVPixelBufferGetBaseAddress(imageBuffer)
-        let bytesPerRow = CVPixelBufferGetBytesPerRow(imageBuffer)
-        let width = CVPixelBufferGetWidth(imageBuffer)
-        let height = CVPixelBufferGetHeight(imageBuffer)
-        let colorSpace = CGColorSpaceCreateDeviceRGB()
-
-        let context = CGContext(
-            data: baseAddress,
-            width: width,
-            height: height,
-            bitsPerComponent: 8,
-            bytesPerRow: bytesPerRow,
-            space: colorSpace,
-            bitmapInfo: (CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue)
-        )
-        guard let drawContext = context else { return nil }
-        guard let cgImage = context.makeImage() else { return nil }
-
-        return self.image(cgImage)
-    }
-
-
+    
+    #if !os(watchOS)
+        public func image(_ buffer: CVImageBuffer) -> CGImage? {
+            let width = CVPixelBufferGetWidth(buffer)
+            let height = CVPixelBufferGetHeight(buffer)
+            
+            let ciImage: CIImage
+            if #available(iOS 9.0, *) {
+                ciImage = CIImage(cvImageBuffer: buffer)
+            } else {
+                ciImage = CIImage(cvPixelBuffer: buffer)
+            }
+            let ciContext: CIContext
+            #if !os(watchOS)
+                if #available(OSX 10.11, iOS 9, tvOS 9, *) {
+                    if let device = self.device as? ImageMetalDevice {
+                        ciContext = CIContext(mtlDevice: device.device)
+                    } else {
+                        ciContext = CIContext()
+                    }
+                } else {
+                    ciContext = CIContext()
+                }
+            #endif
+            
+            let cgMakeImage = ciContext.createCGImage(ciImage, from: CGRect(x: 0, y: 0, width: width, height: height))
+            guard let cgImage = cgMakeImage else { return nil }
+            
+            return self.image(cgImage)
+        }
+    #endif
+    
+    
     // MARK: - Lifecycle
 
     public init(isOnlyCoreGraphic: Bool = false) {
@@ -90,13 +93,13 @@ open class ImageChain {
     
     // MARK: - Internal
     
-    private var device: ImageDevice
+    fileprivate var device: ImageDevice
     
-    private var saveSize: CGSize?
-
-    private var isAlphaProcess: Bool = false
+    fileprivate var saveSize: CGSize?
     
-    private var filterList: [ImageFilter] = []
+    fileprivate var isAlphaProcess: Bool = false
+    
+    fileprivate var filterList: [ImageFilter] = []
     
     
     // MARK: - Public
@@ -855,7 +858,7 @@ extension FIImage {
     
     // MARK: - Private
     
-    private class func screenScale() -> CGFloat {1
+    private class func screenScale() -> CGFloat {
         // over iOS 8
         #if os(iOS)
             if #available(iOS 8, *) {
