@@ -28,7 +28,7 @@ internal class ImageNoneDevice: ImageDevice {
         /// Space Size
         let scale = self.imageScale
         
-        guard let imageRef = self.image?.cgImage else { return }
+        guard let imageRef = self.cgImage else { return }
         defer { self.image = nil }
         
         /// Calc size
@@ -104,24 +104,26 @@ internal class ImageNoneDevice: ImageDevice {
             )
             context.rotate(by: rotateRadius)
             
-            context.draw(
+            self.draw(
                 imageRef,
                 in: CGRect(
                     x: (-size.width * 0.5 + tempX) * scale,
                     y: (-size.height * 0.5 + tempY) * scale,
                     width: size.width * scale,
                     height: size.height * scale
-                )
+                ),
+                on: context
             )
         } else {
-            context.draw(
+            self.draw(
                 imageRef,
                 in: CGRect(
                     x: tempX * scale,
                     y: tempY * scale,
                     width: size.width * scale,
                     height: size.height * scale
-                )
+                ),
+                on: context
             )
         }
         context.restoreGState()
@@ -192,8 +194,8 @@ internal class ImageNoneDevice: ImageDevice {
     
     // MARK: - Lifecycle
     
-    internal override init(image: FIImage) {
-        super.init(image: image)
+    internal override init() {
+        super.init()
         
         self.type = .None
     }

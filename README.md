@@ -74,6 +74,14 @@ let image3 = image2!.adjust()
 let image4 = image3!.adjust()
     .corner(CornerType(25))
     .image()
+
+/// Pipeline
+let pipeline = ImagePipeline()
+        .exclusion(color: UIColor(red: 0, green: 0, blue: 0.352941176, alpha: 1.0))
+        .linearDodge(color: UIColor(red: 0.125490196, green: 0.058823529, blue: 0.192156863, alpha: 1.0))
+
+let image5 = pipeline.image(image2)
+let image6 = pipeline.image(image1)
 ```
 
 
@@ -91,14 +99,14 @@ Use CocoaPods command `$ pod try FlexibleImage` to try Playground!
 KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/cocoapods). Add the following to your Podfile:
 
 ```ruby
-pod 'FlexibleImage', '~> 1.6'
+pod 'FlexibleImage', '~> 1.7'
 ```
 
 
 ### [Carthage](https://github.com/Carthage/Carthage) (For iOS 8+ projects)
 
 ```
-github "kawoou/FlexibleImage" ~> 1.6
+github "kawoou/FlexibleImage" ~> 1.7
 ```
 
 
@@ -133,7 +141,7 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 
 ### Filter
 
-| type | Parameter | Comments |
+| Type | Parameter | Comments |
 | ---- | --------- | -------- |
 | greyscale() | threshold: Float [Optional] | |
 | monochrome() | threshold: Float [Optional] | |
@@ -152,7 +160,7 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 
 ### Blend
 
-| type | Parameter |
+| Type | Parameter |
 | ---- | --------- |
 | normal() | Color |
 | multiply() | Color |
@@ -187,7 +195,7 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 
 ### Post-processing
 
-| type | Parameter | Comments |
+| Type | Parameter | Comments |
 | ---- | --------- | -------- |
 | algorithm() | AlgorithmType | Create an image by writing a formula directly on a pixel-by-pixel basis. |
 | custom() | ContextType | Add processing directly using Core Graphics. |
@@ -195,11 +203,20 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 
 ### Generate
 
-| type | comments |
+| Type | Comments |
 | ---- | -------- |
 | rect() | Create a rectangular image. |
 | circle() | Create a circle image. |
 | append() | Combine images to create a single image. |
+
+
+### Pipeline (`ImagePipeline` class)
+
+| Type | Parameter | Return | Comments |
+| ---- | --------- | ------ | -------- |
+| image() | FIImage | FIImage? | Create the Output image. |
+| image() | CGImage | CGImage? | Create the Output image. |
+| image() | CVImageBuffer | CGImage? | Create the Output image. |
 
 <br>
 
@@ -238,6 +255,9 @@ You can either simply drag and drop the `Sources` folder into your existing proj
   - Added brightness, chromaKey, swizzling, contrast, gamma filters.
 + 1.6 (Hotfix!)
   - Fix issue Metal library path on Cocoapods.
++ 1.7
+  - Pipelined implementation for stream processing.
+  - Fix rendering bug due to image orientation (Thanks to Kwonyoon Kang)
 
 <br>
 
