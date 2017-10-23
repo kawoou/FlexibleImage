@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = 'FlexibleImage'
-  s.version      = '1.7'
+  s.version      = '1.8'
   s.summary      = 'A simple way to play with image!'
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.homepage     = 'https://github.com/Kawoou/FlexibleImage'

@@ -99,14 +99,14 @@ Use CocoaPods command `$ pod try FlexibleImage` to try Playground!
 KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/cocoapods). Add the following to your Podfile:
 
 ```ruby
-pod 'FlexibleImage', '~> 1.7'
+pod 'FlexibleImage', '~> 1.8'
 ```
 
 
 ### [Carthage](https://github.com/Carthage/Carthage) (For iOS 8+ projects)
 
 ```
-github "kawoou/FlexibleImage" ~> 1.7
+github "kawoou/FlexibleImage" ~> 1.8
 ```
 
 
@@ -258,6 +258,8 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 + 1.7
   - Pipelined implementation for stream processing.
   - Fix rendering bug due to image orientation (Thanks to Kwonyoon Kang)
++ 1.8
+  - Support for Swift 4 and Xcode 9
 
 <br>
 
