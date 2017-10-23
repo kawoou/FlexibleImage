@@ -58,16 +58,26 @@ internal class ImageFilter {
                     guard let device = device as? ImageMetalDevice else { return false }
                     
                     // Add command queue
-                    let commandBuffer = device.commandQueue.makeCommandBuffer()
-                    let commandEncoder = commandBuffer.makeComputeCommandEncoder()
+                    #if swift(>=4.0)
+                        guard let commandBuffer = device.commandQueue.makeCommandBuffer() else { return false }
+                        guard let commandEncoder = commandBuffer.makeComputeCommandEncoder() else { return false }
+                    #else
+                        let commandBuffer = device.commandQueue.makeCommandBuffer()
+                        let commandEncoder = commandBuffer.makeComputeCommandEncoder()
+                    #endif
                     
                     if let pipeline = self.metalPipeline as? MTLComputePipelineState {
                         // Set pipeline
                         commandEncoder.setComputePipelineState(pipeline)
                         
                         // Set texture
-                        commandEncoder.setTexture(device.outputTexture!, at: 0)
-                        commandEncoder.setTexture(device.texture!, at: 1)
+                        #if swift(>=4.0)
+                            commandEncoder.setTexture(device.outputTexture!, index: 0)
+                            commandEncoder.setTexture(device.texture!, index: 1)
+                        #else
+                            commandEncoder.setTexture(device.outputTexture!, at: 0)
+                            commandEncoder.setTexture(device.texture!, at: 1)
+                        #endif
                     }
                     
                     let retValue = self.processMetal(device, commandBuffer, commandEncoder)

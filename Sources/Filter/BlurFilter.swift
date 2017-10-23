@@ -85,7 +85,11 @@
                     height: size,
                     mipmapped: false
                 )
-                let texture = device.makeTexture(descriptor: descriptor)
+                #if swift(>=4.0)
+                    guard let texture = device.makeTexture(descriptor: descriptor) else { return }
+                #else
+                    let texture = device.makeTexture(descriptor: descriptor)
+                #endif
                 texture.replace(
                     region: MTLRegionMake2D(0, 0, size, size),
                     mipmapLevel: 0,
@@ -122,10 +126,18 @@
                 let factors: [Float] = [self.radius]
                 
                 if let texture = self.weightTexture as? MTLTexture {
-                    commandEncoder.setTexture(texture, at: 2)
+                    #if swift(>=4.0)
+                        commandEncoder.setTexture(texture, index: 2)
+                    #else
+                        commandEncoder.setTexture(texture, at: 2)
+                    #endif
                 } else {
                     self.makeWeightTexture(device.device)
-                    commandEncoder.setTexture(self.weightTexture as? MTLTexture, at: 2)
+                    #if swift(>=4.0)
+                        commandEncoder.setTexture(self.weightTexture as? MTLTexture, index: 2)
+                    #else
+                        commandEncoder.setTexture(self.weightTexture as? MTLTexture, at: 2)
+                    #endif
                 }
                 
                 for i in 0..<factors.count {
@@ -144,7 +156,11 @@
                         length: size,
                         options: options
                     )
-                    commandEncoder.setBuffer(buffer, offset: 0, at: i)
+                    #if swift(>=4.0)
+                        commandEncoder.setBuffer(buffer, offset: 0, index: i)
+                    #else
+                        commandEncoder.setBuffer(buffer, offset: 0, at: i)
+                    #endif
                 }
                 
                 return super.processMetal(device, commandBuffer, commandEncoder)

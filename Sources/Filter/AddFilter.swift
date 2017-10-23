@@ -46,7 +46,11 @@ internal class AddFilter: ImageFilter {
                     length: size,
                     options: options
                 )
-                commandEncoder.setBuffer(buffer, offset: 0, at: i)
+                #if swift(>=4.0)
+                    commandEncoder.setBuffer(buffer, offset: 0, index: i)
+                #else
+                    commandEncoder.setBuffer(buffer, offset: 0, at: i)
+                #endif
             }
             
             return super.processMetal(device, commandBuffer, commandEncoder)

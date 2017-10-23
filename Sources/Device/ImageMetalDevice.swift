@@ -121,8 +121,12 @@
                 height: height,
                 mipmapped: false
             )
-            
-            let texture = self.device.makeTexture(descriptor: descriptor)
+
+            #if swift(>=4.0)
+                guard let texture = self.device.makeTexture(descriptor: descriptor) else { return }
+            #else
+                let texture = self.device.makeTexture(descriptor: descriptor)
+            #endif
             texture.replace(
                 region: MTLRegionMake2D(0, 0, width, height),
                 mipmapLevel: 0,
@@ -277,7 +281,11 @@
             #endif
             
             // Make command queue
-            self.commandQueue = self.device.makeCommandQueue()
+            #if swift(>=4.0)
+                self.commandQueue = self.device.makeCommandQueue()!
+            #else
+                self.commandQueue = self.device.makeCommandQueue()
+            #endif
             
             super.init()
             
