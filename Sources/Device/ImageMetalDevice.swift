@@ -271,7 +271,12 @@
             #if os(OSX)
                 let devices = MTLCopyAllDevices()
                 for device in devices {
-                    print(device.name!) // [0] -> "AMD Radeon Pro 455", [1] -> "Intel(R) HD Graphics 530"
+                    // [0] -> "AMD Radeon Pro 455", [1] -> "Intel(R) HD Graphics 530"
+                    #if swift(>=4.0)
+                        print(device.name)
+                    #else
+                        print(device.name!)
+                    #endif
                 }
                 
                 self.device = devices[0]

@@ -747,24 +747,44 @@ extension FIImage {
             
             guard let context = UIGraphicsGetCurrentContext() else { return nil }
         #else
-            guard let offscreenRep = NSBitmapImageRep(
-                bitmapDataPlanes: nil,
-                pixelsWide: Int(newSize.width),
-                pixelsHigh: Int(newSize.height),
-                bitsPerSample: 8,
-                samplesPerPixel: 4,
-                hasAlpha: true,
-                isPlanar: false,
-                colorSpaceName: NSDeviceRGBColorSpace,
-                bitmapFormat: .alphaFirst,
-                bytesPerRow: 0,
-                bitsPerPixel: 0
+            #if swift(>=4.0)
+                guard let offscreenRep = NSBitmapImageRep(
+                    bitmapDataPlanes: nil,
+                    pixelsWide: Int(newSize.width),
+                    pixelsHigh: Int(newSize.height),
+                    bitsPerSample: 8,
+                    samplesPerPixel: 4,
+                    hasAlpha: true,
+                    isPlanar: false,
+                    colorSpaceName: NSColorSpaceName.deviceRGB,
+                    bitmapFormat: .alphaFirst,
+                    bytesPerRow: 0,
+                    bitsPerPixel: 0
                 ) else { return nil }
+            #else
+                guard let offscreenRep = NSBitmapImageRep(
+                    bitmapDataPlanes: nil,
+                    pixelsWide: Int(newSize.width),
+                    pixelsHigh: Int(newSize.height),
+                    bitsPerSample: 8,
+                    samplesPerPixel: 4,
+                    hasAlpha: true,
+                    isPlanar: false,
+                    colorSpaceName: NSDeviceRGBColorSpace,
+                    bitmapFormat: .alphaFirst,
+                    bytesPerRow: 0,
+                    bitsPerPixel: 0
+                ) else { return nil }
+            #endif
             
             guard let graphicsContext = NSGraphicsContext(bitmapImageRep: offscreenRep) else { return nil }
             
             NSGraphicsContext.saveGraphicsState()
+            #if swift(>=4.0)
+            NSGraphicsContext.current = graphicsContext
+            #else
             NSGraphicsContext.setCurrent(graphicsContext)
+            #endif
             defer { NSGraphicsContext.restoreGraphicsState() }
             
             let context = graphicsContext.cgContext
@@ -805,24 +825,44 @@ extension FIImage {
             
             guard let context = UIGraphicsGetCurrentContext() else { return nil }
         #else
-            guard let offscreenRep = NSBitmapImageRep(
-                bitmapDataPlanes: nil,
-                pixelsWide: Int(newSize.width),
-                pixelsHigh: Int(newSize.height),
-                bitsPerSample: 8,
-                samplesPerPixel: 4,
-                hasAlpha: true,
-                isPlanar: false,
-                colorSpaceName: NSDeviceRGBColorSpace,
-                bitmapFormat: .alphaFirst,
-                bytesPerRow: 0,
-                bitsPerPixel: 0
-            ) else { return nil }
+            #if swift(>=4.0)
+                guard let offscreenRep = NSBitmapImageRep(
+                    bitmapDataPlanes: nil,
+                    pixelsWide: Int(newSize.width),
+                    pixelsHigh: Int(newSize.height),
+                    bitsPerSample: 8,
+                    samplesPerPixel: 4,
+                    hasAlpha: true,
+                    isPlanar: false,
+                    colorSpaceName: NSColorSpaceName.deviceRGB,
+                    bitmapFormat: .alphaFirst,
+                    bytesPerRow: 0,
+                    bitsPerPixel: 0
+                ) else { return nil }
+            #else
+                guard let offscreenRep = NSBitmapImageRep(
+                    bitmapDataPlanes: nil,
+                    pixelsWide: Int(newSize.width),
+                    pixelsHigh: Int(newSize.height),
+                    bitsPerSample: 8,
+                    samplesPerPixel: 4,
+                    hasAlpha: true,
+                    isPlanar: false,
+                    colorSpaceName: NSDeviceRGBColorSpace,
+                    bitmapFormat: .alphaFirst,
+                    bytesPerRow: 0,
+                    bitsPerPixel: 0
+                ) else { return nil }
+            #endif
             
             guard let graphicsContext = NSGraphicsContext(bitmapImageRep: offscreenRep) else { return nil }
             
             NSGraphicsContext.saveGraphicsState()
-            NSGraphicsContext.setCurrent(graphicsContext)
+            #if swift(>=4.0)
+                NSGraphicsContext.current = graphicsContext
+            #else
+                NSGraphicsContext.setCurrent(graphicsContext)
+            #endif
             defer { NSGraphicsContext.restoreGraphicsState()}
             
             let context = graphicsContext.cgContext
