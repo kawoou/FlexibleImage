@@ -1,6 +1,6 @@
 //
 //  ImageFilter.swift
-//  Test Project
+//  FlexibleImage
 //
 //  Created by Kawoou on 2017. 5. 9..
 //  Copyright © 2017년 test. All rights reserved.

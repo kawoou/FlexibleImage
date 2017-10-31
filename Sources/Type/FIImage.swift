@@ -1,6 +1,6 @@
 //
 //  FIImage.swift
-//  Test Project
+//  FlexibleImage
 //
 //  Created by Kawoou on 2017. 5. 10..
 //  Copyright © 2017년 test. All rights reserved.

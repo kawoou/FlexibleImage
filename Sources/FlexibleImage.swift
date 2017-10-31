@@ -642,7 +642,7 @@ open class ImageChain {
                     let b = Float(memoryPool[index + 2]) / 255.0
                     let a = Float(memoryPool[index + 3]) / 255.0
                     
-                    let inColor = ColorType(r, g, b, a)
+                    let inColor = FIColorType(r, g, b, a)
                     let outColor = algorithm(y, x, inColor, width, height, memoryPool)
                     
                     memoryPool[index + 0] = UInt8(max(min(outColor.r, 1.0), 0.0) * 255.0)

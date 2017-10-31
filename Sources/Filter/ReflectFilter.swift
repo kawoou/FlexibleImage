@@ -1,6 +1,6 @@
 //
 //  ReflectFilter.swift
-//  Test Project
+//  FlexibleImage
 //
 //  Created by Kawoou on 2017. 5. 12..
 //  Copyright © 2017년 test. All rights reserved.
@@ -20,7 +20,7 @@ internal class ReflectFilter: ImageFilter {
         }
     }
     
-    internal var color: ColorType = (1.0, 1.0, 1.0, 1.0)
+    internal var color: FIColorType = (1.0, 1.0, 1.0, 1.0)
     
     
     // MARK: - Internal

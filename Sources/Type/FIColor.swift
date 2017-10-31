@@ -1,6 +1,6 @@
 //
 //  FIColor.swift
-//  Test Project
+//  FlexibleImage
 //
 //  Created by Kawoou on 2017. 5. 12..
 //  Copyright © 2017년 test. All rights reserved.
@@ -15,11 +15,11 @@
 #endif
 
 internal extension FIColor {
-    internal var imageColor: ColorType {
+    internal var imageColor: FIColorType {
         get {
             #if os(OSX)
                 let rgba = CIColor(color: self)!
-                return ColorType(Float(rgba.red), Float(rgba.green), Float(rgba.blue), Float(rgba.alpha))
+                return FIColorType(Float(rgba.red), Float(rgba.green), Float(rgba.blue), Float(rgba.alpha))
             #else
                 var r = CGFloat(0)
                 var g = CGFloat(0)
@@ -27,7 +27,7 @@ internal extension FIColor {
                 var a = CGFloat(0)
                 self.getRed(&r, green: &g, blue: &b, alpha: &a)
                 
-                return ColorType(Float(r), Float(g), Float(b), Float(a))
+                return FIColorType(Float(r), Float(g), Float(b), Float(a))
             #endif
         }
     }

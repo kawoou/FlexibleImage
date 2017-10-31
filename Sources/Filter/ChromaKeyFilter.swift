@@ -1,6 +1,6 @@
 //
 //  ChromaKeyFilter.swift
-//  Test Project
+//  FlexibleImage
 //
 //  Created by Kawoou on 2017. 5. 12..
 //  Copyright © 2017년 test. All rights reserved.
@@ -22,7 +22,7 @@ internal class ChromaKeyFilter: ImageFilter {
     
     internal var threshold: Float = 0.4
     internal var smoothing: Float = 0.1
-    internal var color: ColorType = (0.0, 1.0, 0.0, 1.0)
+    internal var color: FIColorType = (0.0, 1.0, 0.0, 1.0)
     
     
     // MARK: - Internal
