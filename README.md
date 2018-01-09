@@ -99,6 +99,10 @@ Use CocoaPods command `$ pod try FlexibleImage` to try Playground!
 KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/cocoapods). Add the following to your Podfile:
 
 ```ruby
+/// Swift 3
+pod 'FlexibleImage', '~> 1.7'
+
+/// Swift 4
 pod 'FlexibleImage', '~> 1.8'
 ```
 
