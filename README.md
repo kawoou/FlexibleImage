@@ -103,14 +103,14 @@ KWDrawerController is available on [CocoaPods](https://github.com/cocoapods/coco
 pod 'FlexibleImage', '~> 1.7'
 
 /// Swift 4
-pod 'FlexibleImage', '~> 1.8'
+pod 'FlexibleImage', '~> 1.9'
 ```
 
 
 ### [Carthage](https://github.com/Carthage/Carthage) (For iOS 8+ projects)
 
 ```
-github "kawoou/FlexibleImage" ~> 1.8
+github "kawoou/FlexibleImage" ~> 1.9
 ```
 
 
@@ -264,6 +264,8 @@ You can either simply drag and drop the `Sources` folder into your existing proj
   - Fix rendering bug due to image orientation (Thanks to Kwonyoon Kang)
 + 1.8
   - Support for Swift 4 and Xcode 9
++ 1.9
+  - Support for Swift 4.1 and Xcode 9.3
 
 <br>
 
