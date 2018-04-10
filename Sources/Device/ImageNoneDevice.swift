@@ -63,7 +63,11 @@ internal class ImageNoneDevice: ImageDevice {
         /// Push Context
         guard let context = self.context else {
             self.drawRect = nil
+            #if swift(>=4.1)
+            self.memoryPool!.deallocate()
+            #else
             self.memoryPool!.deallocate(capacity: self.memorySize!)
+            #endif
             
             self.memorySize = nil
             self.memoryPool = nil
@@ -138,7 +142,11 @@ internal class ImageNoneDevice: ImageDevice {
         guard let context = self.context else { return nil }
         defer {
             self.drawRect = nil
+            #if swift(>=4.1)
+            self.memoryPool!.deallocate()
+            #else
             self.memoryPool!.deallocate(capacity: self.memorySize!)
+            #endif
             
             self.memorySize = nil
             self.memoryPool = nil

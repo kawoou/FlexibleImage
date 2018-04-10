@@ -59,7 +59,13 @@ internal class TextureAppendFilter: ImageFilter {
             let memorySize = bytesPerRow * height
             
             let memoryPool = UnsafeMutablePointer<UInt8>.allocate(capacity: memorySize)
-            defer { memoryPool.deallocate(capacity: memorySize) }
+            defer {
+                #if swift(>=4.1)
+                memoryPool.deallocate()
+                #else
+                memoryPool.deallocate(capacity: memorySize)
+                #endif
+            }
             memset(memoryPool, 0, memorySize)
             
             /// Create Context

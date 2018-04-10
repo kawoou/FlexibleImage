@@ -197,7 +197,11 @@ class ViewController: NSViewController, NSComboBoxDataSource {
         self.sizeCG.stringValue = "\(cgSize.width)x\(cgSize.height)"
     }
     @IBAction func resetClicked(_ sender: NSButton) {
+        #if swift(>=4.0)
+        let image = NSImage(named: NSImage.Name("macaron.jpg"))
+        #else
         let image = NSImage(named: "macaron.jpg")
+        #endif
         
         self.imageMetal.image = image
         self.imageCG.image = image

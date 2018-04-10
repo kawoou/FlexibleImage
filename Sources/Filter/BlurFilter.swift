@@ -54,7 +54,13 @@
                 }
                 
                 let rawData = UnsafeMutablePointer<Float>.allocate(capacity: size * size)
-                defer { rawData.deallocate(capacity: size * size) }
+                defer {
+                    #if swift(>=4.1)
+                    rawData.deallocate()
+                    #else
+                    rawData.deallocate(capacity: size * size)
+                    #endif
+                }
                 
                 var weightSum = Float(0)
                 var y = -self.radius
@@ -183,7 +189,13 @@
             /// Alloc Memory
             let destMemorySize = width * height * 4
             let destMemoryPool = UnsafeMutablePointer<UInt8>.allocate(capacity: destMemorySize)
-            defer { destMemoryPool.deallocate(capacity: destMemorySize) }
+            defer {
+                #if swift(>=4.1)
+                destMemoryPool.deallocate()
+                #else
+                destMemoryPool.deallocate(capacity: destMemorySize)
+                #endif
+            }
             memcpy(destMemoryPool, memoryPool, destMemorySize)
             
             /// Destination Buffer
