@@ -2,7 +2,7 @@
 
 <center>
 <p align="center">
-  <img alt="Swift" src="https://img.shields.io/badge/Swift-3.0-orange.svg">
+  <img alt="Swift" src="https://img.shields.io/badge/Swift-4.1-orange.svg">
   <a href="https://developer.apple.com/metal/" target="_blank"><img alt="Metal" src="https://img.shields.io/badge/Apple-Metal-ff00ff.svg"></a>
   <a href="http://cocoadocs.org/docsets/FlexibleImage" target="_blank"><img alt="Platform" src="http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat"></a>
   <a href="https://github.com/kawoou/FlexibleImage/blob/master/LICENSE" target="_blank"><img alt="License" src="http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat"></a>
