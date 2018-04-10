@@ -108,9 +108,11 @@ internal class ImageNoneDevice: ImageDevice {
             )
             context.rotate(by: rotateRadius)
             
+            let calcX = -size.width * 0.5 + tempX
+            let calcY = -size.height * 0.5 + tempY
             let rect = CGRect(
-                x: (-size.width * 0.5 + tempX) * scale,
-                y: (-size.height * 0.5 + tempY) * scale,
+                x: calcX * scale,
+                y: calcY * scale,
                 width: size.width * scale,
                 height: size.height * scale
             )
