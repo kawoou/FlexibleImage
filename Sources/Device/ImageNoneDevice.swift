@@ -108,27 +108,21 @@ internal class ImageNoneDevice: ImageDevice {
             )
             context.rotate(by: rotateRadius)
             
-            self.draw(
-                imageRef,
-                in: CGRect(
-                    x: (-size.width * 0.5 + tempX) * scale,
-                    y: (-size.height * 0.5 + tempY) * scale,
-                    width: size.width * scale,
-                    height: size.height * scale
-                ),
-                on: context
+            let rect = CGRect(
+                x: (-size.width * 0.5 + tempX) * scale,
+                y: (-size.height * 0.5 + tempY) * scale,
+                width: size.width * scale,
+                height: size.height * scale
             )
+            self.draw(imageRef, in: rect, on: context)
         } else {
-            self.draw(
-                imageRef,
-                in: CGRect(
-                    x: tempX * scale,
-                    y: tempY * scale,
-                    width: size.width * scale,
-                    height: size.height * scale
-                ),
-                on: context
+            let rect = CGRect(
+                x: tempX * scale,
+                y: tempY * scale,
+                width: size.width * scale,
+                height: size.height * scale
             )
+            self.draw(imageRef, in: rect, on: context)
         }
         context.restoreGState()
         

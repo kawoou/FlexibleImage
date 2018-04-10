@@ -159,19 +159,18 @@ internal class TextureAppendFilter: ImageFilter {
         let appendWidth = CGFloat(imageRef.width) * CGFloat(self.scaleX)
         let appendHeight = CGFloat(imageRef.height) * CGFloat(self.scaleY)
         
+        let rect = CGRect(
+            x: CGFloat(self.offsetX),
+            y: CGFloat(device.context!.height) - CGFloat(self.offsetY) - appendHeight,
+            width: appendWidth,
+            height: appendHeight
+        )
+        
         device.context?.saveGState()
         
         device.context?.setBlendMode(.normal)
         device.context?.setAlpha(1.0)
-        device.context?.draw(
-            imageRef,
-            in: CGRect(
-                x: CGFloat(self.offsetX),
-                y: CGFloat(device.context!.height) - CGFloat(self.offsetY) - appendHeight,
-                width: appendWidth,
-                height: appendHeight
-            )
-        )
+        device.context?.draw(imageRef, in: rect)
         
         device.context?.restoreGState()
         

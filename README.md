@@ -1,4 +1,4 @@
-<img alt="FlexibleImage" src="https://github.com/Kawoou/FlexibleImage/raw/master/Preview/Cover.png" style="max-width: 100%">
+<img alt="FlexibleImage" src="https://github.com/kawoou/FlexibleImage/raw/master/Preview/Cover.png" style="max-width: 100%">
 
 <center>
 <p align="center">
@@ -7,7 +7,7 @@
   <a href="http://cocoadocs.org/docsets/FlexibleImage" target="_blank"><img alt="Platform" src="http://img.shields.io/cocoapods/p/FlexibleImage.svg?style=flat"></a>
   <a href="https://github.com/kawoou/FlexibleImage/blob/master/LICENSE" target="_blank"><img alt="License" src="http://img.shields.io/cocoapods/l/FlexibleImage.svg?style=flat"></a>
   <br>
-  <a href="https://travis-ci.org/Kawoou/FlexibleImage" target="_blank"><img alt="Build Status" src="https://travis-ci.org/Kawoou/FlexibleImage.svg?branch=master"></a>
+  <a href="https://travis-ci.org/kawoou/FlexibleImage" target="_blank"><img alt="Build Status" src="https://travis-ci.org/kawoou/FlexibleImage.svg?branch=master"></a>
   <a href="http://cocoadocs.org/docsets/FlexibleImage" target="_blank"><img alt="Version" src="http://img.shields.io/cocoapods/v/FlexibleImage.svg?style=flat"></a>
   <a href="https://github.com/Carthage/Carthage" target="_blank"><img alt="Carthage compatible" src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat"></a>
 </p>
@@ -15,7 +15,7 @@
 
 FlexibleImage is implemented with the hope that anyone could easily develop an app that provides features such as Camera Filter and Theme. When you write code in the "Method Chaining" style, the effect is applied in the appropriate order.
 
-You may want to see [Examples](https://github.com/Kawoou/FlexibleImage#-example) section first if you'd like to see the actual code.
+You may want to see [Examples](#-example) section first if you'd like to see the actual code.
 
 <br>
 
@@ -24,7 +24,7 @@ You may want to see [Examples](https://github.com/Kawoou/FlexibleImage#-example)
 
 ### Code
 
-![Example Image](https://github.com/Kawoou/FlexibleImage/raw/master/Preview/Example.png)
+![Example Image](https://github.com/kawoou/FlexibleImage/raw/master/Preview/Example.png)
 
 ```swift
 import UIKit
@@ -227,12 +227,12 @@ You can either simply drag and drop the `Sources` folder into your existing proj
 🎁 Example
 -------
 
-- [iOS APP Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-app-iOS)
-- [iOS Playground Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-playground-iOS.playground)
-- [macOS App Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-app-macOS)
-- [macOS Playground Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-playground-macOS.playground)
-- [tvOS App Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-app-tvOS)
-- [tvOS Playground Example](https://github.com/Kawoou/FlexibleImage/tree/master/Example-playground-tvOS.playground)
+- [iOS APP Example](https://github.com/kawoou/FlexibleImage/tree/master/Example-app-iOS)
+- [iOS Playground Example](https://github.com/kawoou/FlexibleImage/tree/master/Example-playground-iOS.playground)
+- [macOS App Example](https://github.com/kawoou/FlexibleImage/tree/master/Example-app-macOS)
+- [macOS Playground Example](https://github.com/kawoou/FlexibleImage/tree/master/Example-playground-macOS.playground)
+- [tvOS App Example](https://github.com/kawoou/FlexibleImage/tree/master/Example-app-tvOS)
+- [tvOS Playground Example](https://github.com/kawoou/FlexibleImage/tree/master/Example-playground-tvOS.playground)
 
 <br>
 
