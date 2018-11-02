@@ -50,7 +50,7 @@ internal class ImageDevice {
     }
     internal var cgImage: CGImage?
     #if !os(OSX)
-    internal var imageOrientation: UIImageOrientation = .up
+    internal var imageOrientation: UIImage.Orientation = .up
     #endif
     internal var imageScale: CGFloat = 1.0
     

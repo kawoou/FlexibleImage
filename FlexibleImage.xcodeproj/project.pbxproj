@@ -844,7 +844,7 @@
 					9DA4D9BB1EB967DC00372006 = {
 						CreatedOnToolsVersion = 8.3.1;
 						DevelopmentTeam = 4U2J29Y5X8;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1000;
 						ProvisioningStyle = Automatic;
 					};
 					9DF90E841EBA50EB002B0CBD = {
@@ -1416,7 +1416,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1436,7 +1436,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.kawoou.FlexibleImage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
