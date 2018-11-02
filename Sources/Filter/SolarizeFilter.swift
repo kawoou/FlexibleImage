@@ -74,9 +74,9 @@ internal class SolarizeFilter: ImageFilter {
                 let l = r * 0.2125 + g * 0.7154 + b * 0.0721
                 let t = Float(threshold >= l ? 255 : 0)
                 
-                memoryPool[index + 0] = UInt8(fabs(t - r))
-                memoryPool[index + 1] = UInt8(fabs(t - g))
-                memoryPool[index + 2] = UInt8(fabs(t - b))
+                memoryPool[index + 0] = UInt8(abs(t - r))
+                memoryPool[index + 1] = UInt8(abs(t - g))
+                memoryPool[index + 2] = UInt8(abs(t - b))
                 
                 index += 4
             }
