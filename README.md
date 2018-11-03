@@ -266,6 +266,8 @@ You can either simply drag and drop the `Sources` folder into your existing proj
   - Support for Swift 4 and Xcode 9
 + 1.9
   - Support for Swift 4.1 and Xcode 9.3
++ 1.10
+  - Support for Swift 4.2 and Xcode 10
 
 <br>
 
