@@ -35,5 +35,5 @@ deploy:
   file: $TARGET.framework.zip
   skip_cleanup: true
   on:
-    repo: Kawoou/FlexibleImage
+    repo: kawoou/FlexibleImage
     tags: true
